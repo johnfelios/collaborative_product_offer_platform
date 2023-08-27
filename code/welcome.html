@@ -4,20 +4,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Welcome</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <style>
-  /* ... your CSS styles ... */
+   body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.signup-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.signup-container label,
+.signup-container input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.signup-container button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.signup-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Center the form elements within the container */
+.signup-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+  /* Style for the map container */
+  .map-container {
+    width: 100%;
+    height: 500px; /* Adjust the height as needed */
+    margin-top: 20px;
+  }
 </style>
 </head>
 <body>
 <div class="welcome-container">
   <h2>Welcome</h2>
   <p>Hello <span id="username"></span>! You've successfully signed up.</p>
+  
+  <!-- Map container -->
+  <div class="map-container" id="map"></div>
 </div>
 
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 document.getElementById('username').textContent = username;
+
+// Initialize the map
+const map = L.map('map').setView([38.2466, 21.7346], 13); // Replace with Patras coordinates
+
+// Add the tile layer (base map)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Add a marker for Patras
+L.marker([38.2466, 21.7346]).addTo(map)
+  .bindPopup("Welcome to Patras!") // You can customize the popup content
+  .openPopup();
 </script>
 </body>
 </html>
