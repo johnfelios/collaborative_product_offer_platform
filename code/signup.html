@@ -62,46 +62,55 @@
 </div>
 
 <script>
-document.getElementById('signup-form').addEventListener('submit', function(event) {
-  const passwordInput = document.getElementById('password');
-  const passwordValue = passwordInput.value;
-  
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  
-  if (!passwordRegex.test(passwordValue)) {
-    alert("Password must be at least 8 characters and contain an uppercase letter, a number, and a symbol.");
+ document.getElementById('signup-form').addEventListener('submit', function(event) {
     event.preventDefault();
-  }
-});
-</script>
-</body>
 
-
-<script>
-  document.getElementById('signup-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission behavior
-
-    const passwordInput = document.getElementById('password');
-    const passwordValue = passwordInput.value;
-    
+    const usernameValue = document.getElementById('username').value;
+    const emailValue = document.getElementById('email').value;
+    const passwordValue = document.getElementById('password').value;
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
-    if (!passwordRegex.test(passwordValue)) {
-      alert("Password must be at least 8 characters and contain an uppercase letter, a number, and a symbol.");
-    } else {
-      const usernameValue = document.getElementById('username').value;
-      localStorage.setItem('username', usernameValue);
-      redirectToWelcomePage(); // Redirect immediately after setting localStorage
-    }
-  });
-  
-  function redirectToWelcomePage() {
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-      localStorage.removeItem('username'); // Clear stored username
-      window.location.href = 'index.html?username=' + encodeURIComponent(storedUsername);
-    }
-  }
+
+
+
+if (!passwordRegex.test(passwordValue)) {
+    alert("Password must be at least 8 characters and contain an uppercase letter, a number, and a symbol.");
+} else {
+    addUserToDatabase(usernameValue, emailValue, passwordValue);
+}
+
+function addUserToDatabase(username, email, password) {
+  fetch('addUser.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === 'User added successfully') {
+            redirectToWelcomePage(username);
+        } else {
+            alert('Error adding user.');
+        }
+    })
+    .catch(error => {
+        console.error('There was an error!', error);
+    });
+}
+
+});
+
+function redirectToWelcomePage(username) {
+    localStorage.setItem('username', username);  // Store the username in localStorage
+    window.location.href = 'index.html?username=' + encodeURIComponent(username);  // Redirect using the newly entered username
+}
+
+
 </script>
 
   </body>
