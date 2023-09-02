@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <div id="map" style="width: 100%; height: 500px;"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            var map = L.map('map').setView([38.2466, 21.7346], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            fetch('/getStores')
+                .then(response => {
+                    return response.json();
+                })
+                .then(jsonData => {
+                    if (!jsonData.elements) {
+                        console.error('Invalid JSON format: Expected an "elements" property.');
+                        return;
+                    }
+
+                    jsonData.elements.forEach(element => {
+                        const marker = L.marker([element.lat, element.lon]).addTo(map);
+                        if (element.tags) {
+                            let popupContent = "";
+                            if (element.tags.name) {
+                                popupContent += `<strong>${element.tags.name}</strong><br>`;
+                            }
+                            if (element.tags.shop) {
+                                popupContent += `${element.tags.shop}<br>`;
+                            }
+                            marker.bindPopup(popupContent);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('There was an error fetching the data:', error);
+                });
+        });
+    </script>
+</body>
+</html>
