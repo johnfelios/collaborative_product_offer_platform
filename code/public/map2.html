@@ -5,47 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #container {
+            display: flex;
+        }
+
+        #sidePanel {
+            width: 20%;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+            overflow-y: scroll;
+            height: 500px;
+        }
+
+        #map {
+            width: 80%;
+            height: 500px;
+        }
+    </style>
 </head>
 <body>
-    <div id="map" style="width: 100%; height: 500px;"></div>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            var map = L.map('map').setView([38.2466, 21.7346], 13);
+<div id="container">
+    <div id="sidePanel">
+        <select id="storeSelect" onchange="filterStoresByName()">
+            <option value="">Select a store...</option>
+            <!-- Options will be dynamically populated here from the fetched data -->
+        </select>
+    </div>
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
+    <div id="map"></div>
+</div>
 
-            fetch('/getStores')
-                .then(response => {
-                    return response.json();
-                })
-                .then(jsonData => {
-                    if (!jsonData.elements) {
-                        console.error('Invalid JSON format: Expected an "elements" property.');
-                        return;
-                    }
-
-                    jsonData.elements.forEach(element => {
-                        const marker = L.marker([element.lat, element.lon]).addTo(map);
-                        if (element.tags) {
-                            let popupContent = "";
-                            if (element.tags.name) {
-                                popupContent += `<strong>${element.tags.name}</strong><br>`;
-                            }
-                            if (element.tags.shop) {
-                                popupContent += `${element.tags.shop}<br>`;
-                            }
-                            marker.bindPopup(popupContent);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('There was an error fetching the data:', error);
-                });
-        });
-    </script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="mapscript.js"></script>
 </body>
 </html>

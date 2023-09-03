@@ -56,9 +56,15 @@ app.post('/api/add-user', (req, res) => {
 });
 
 app.get('/getStores', (req, res) => {
-    const query = "SELECT * FROM store";
-    
-    connection.query(query, (err, results) => {
+    let query = "SELECT * FROM store";
+    const storeNames = req.query.names ? req.query.names.split(',') : [];
+
+    if (storeNames.length) {
+        query += ` WHERE name IN (${storeNames.map(() => '?').join(',')})`;
+    }
+
+    connection.query(query, storeNames, (err, results) => {
+        // ... (rest of the code)
         if (err) {
             res.status(500).send('Server error');
             throw err;
@@ -79,6 +85,19 @@ app.get('/getStores', (req, res) => {
         res.json(response);
     });
 });
+
+app.get('/getUniqueStoreNames', (req, res) => {
+    const query = "SELECT DISTINCT name FROM store";
+    
+    connection.query(query, (err, results) => {
+        if (err) {
+            res.status(500).send('Server error');
+            return;
+        }
+        res.json(results.map(store => store.name));
+    });
+});
+
 
 const PORT = 5500;
 app.listen(PORT, () => {

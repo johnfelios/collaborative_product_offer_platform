@@ -1,51 +1,70 @@
+var map; // Declare globally
+var markers = []; // To store all markers
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the map
-    var map = L.map('map').setView([38.2466, 21.7346], 13);
+    map = L.map('map').setView([38.2466, 21.7346], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Fetch the JSON data from stores.json
+    const storeSelect = document.getElementById('storeSelect');
+    storeSelect.addEventListener('change', filterStoresByName);
+
     fetch('stores.json')
-        .then(response => {
-            // Parse the response as JSON
-            return response.json();
-        })
+        .then(response => response.json())
         .then(jsonData => {
-            // jsonData now contains the parsed data from stores.json
+            console.log("Fetched Data:", jsonData); // Log fetched data
 
-            // Ensure that 'elements' exists in jsonData before proceeding
-            if (!jsonData.elements) {
-                console.error('Invalid JSON format: Expected an "elements" property.');
-                return;
-            }
+            let storeNames = new Set(); // For storing unique store names
 
-            // Iterate over the elements in your JSON data
             jsonData.elements.forEach(element => {
-                if (element.type === 'node') {
-                    // Create a marker for each node and add it to the map
-                    const marker = L.marker([element.lat, element.lon]).addTo(map);
+                if (element.type === 'node' && element.tags && element.tags.name) {
+                    storeNames.add(element.tags.name); // Add store name to set
 
-                    // If there are tags for the element, add them as a popup to the marker
-                    if (element.tags) {
-                        let popupContent = "";
+                    const marker = L.marker([element.lat, element.lon]);
 
-                        // For example, you can use the 'name' and 'shop' tags
-                        if (element.tags.name) {
-                            popupContent += `<strong>${element.tags.name}</strong><br>`;
-                        }
-                        if (element.tags.shop) {
-                            popupContent += `${element.tags.shop}<br>`;
-                        }
-                        // ... Add more tags if needed ...
-
-                        marker.bindPopup(popupContent);
+                    let popupContent = "";
+                    if (element.tags.name) {
+                        popupContent += `<strong>${element.tags.name}</strong><br>`;
                     }
+                    if (element.tags.shop) {
+                        popupContent += `${element.tags.shop}<br>`;
+                    }
+
+                    marker.bindPopup(popupContent);
+                    markers.push({ marker, name: element.tags.name }); // Store marker with its associated store name
                 }
+            });
+
+            console.log("Markers:", markers); // Log markers array
+
+            // Populate the dropdown with store names
+            const storeSelect = document.getElementById('storeSelect');
+            storeNames.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                storeSelect.appendChild(option);
             });
         })
         .catch(error => {
             console.error('There was an error fetching the JSON data:', error);
         });
 });
+
+
+
+function filterStoresByName() {
+    console.log("Filtering stores..."); // Log to check if function is being executed
+
+    const selectedStore = document.getElementById('storeSelect').value;
+    markers.forEach(({ marker, name }) => {
+        if (selectedStore === "" || selectedStore === name) {
+            marker.addTo(map);
+        } else {
+            map.removeLayer(marker);
+        }
+    });
+}
