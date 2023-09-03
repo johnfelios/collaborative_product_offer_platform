@@ -1,6 +1,8 @@
 var map; // Declare globally
 var markers = []; // To store all markers
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the map
     map = L.map('map').setView([38.2466, 21.7346], 13);
@@ -22,14 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
             jsonData.elements.forEach(element => {
                 if (element.type === 'node' && element.tags && element.tags.name) {
                     storeNames.add(element.tags.name); // Add store name to set
-                    
-                    const marker = L.marker([element.lat, element.lon]);
+                    let color;
+                    if (element.tags.offers && element.tags.offers.length > 0) {
+                        color = 'green'; // Color for stores with offers
+                    } else {
+                        color = 'blue'; // Color for stores without offers
+                    }
+                
+                    const marker = L.circleMarker([element.lat, element.lon], {
+                        color: color,
+                        fillColor: color,
+                        fillOpacity: 0.5,
+                        radius: 10
+                    });
 
                     let popupContent = `<strong>${element.tags.name || ''}</strong><br>`;
                     
                     if (element.tags.offers) {
                         element.tags.offers.forEach(offer => {
-                            popupContent += `Product Name: ${offer.product_name}, Price: ${offer.price}<br>`;
+                            popupContent += `<hr>`;
+                            popupContent += `<strong>Product Name: ${offer.product_name}</strong><br>`;
+                            popupContent += `<strong>Price: ${offer.price}</strong><br>`;
+
                             popupContent += `Date: ${offer.date}<br>`;
                             popupContent += `Likes: ${offer.likes}<br>`;
                             popupContent += `Dislikes: ${offer.dislikes}<br>`;
