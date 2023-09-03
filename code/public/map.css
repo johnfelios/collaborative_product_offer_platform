@@ -1,0 +1,68 @@
+#container {
+    display: flex;
+}
+
+#selectorContainer {
+    background-color: #1223e21f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#sidePanel {
+    width: 20%;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    overflow-y: scroll;
+    height: 500px;
+}
+
+#map {
+    width: 80%;
+    height: 500px;
+}
+header {
+    background-color: #1e11cde9;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content:space-between;
+    align-items: center; /* vertically centers content */
+    width: 100%;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    }
+
+    footer {
+    background-color: #333;
+    color: #fff;
+    text-align: right;
+    padding: 0.2px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: x-small;
+}
+
+    .user-greeting {
+        margin-right: 20px;
+        justify-content:right;
+        font-size: 20px; /* Adjust this to your liking */
+        color: #1bf61b; /* Change this to your preferred color */
+    }
+
+    .spacer {
+        height: 60px;
+    }
+
+    .texts {
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+        margin-bottom: 10px;
+    }
+    .title {
+        margin-left: 20px;
+    }
