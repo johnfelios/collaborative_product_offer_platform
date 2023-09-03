@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const storeSelect = document.getElementById('storeSelect');
     storeSelect.addEventListener('change', filterStoresByName);
 
-    fetch('stores.json')
+    fetch('/getStores')
         .then(response => response.json())
         .then(jsonData => {
             console.log("Fetched Data:", jsonData); // Log fetched data
@@ -22,21 +22,23 @@ document.addEventListener('DOMContentLoaded', () => {
             jsonData.elements.forEach(element => {
                 if (element.type === 'node' && element.tags && element.tags.name) {
                     storeNames.add(element.tags.name); // Add store name to set
-
+                    
                     const marker = L.marker([element.lat, element.lon]);
 
-                    let popupContent = "";
-                    if (element.tags.name) {
-                        popupContent += `<strong>${element.tags.name}</strong><br>`;
+                    let popupContent = `<strong>${element.tags.name || ''}</strong><br>`;
+                    
+                    if (element.tags.offers) {
+                        element.tags.offers.forEach(offer => {
+                            popupContent += `Product ID: ${offer.product_id}, Price: ${offer.price}<br>`;
+                        });
                     }
-                    if (element.tags.shop) {
-                        popupContent += `${element.tags.shop}<br>`;
-                    }
+    
+                marker.bindPopup(popupContent);
+                markers.push({ marker, name: element.tags.name }); // Store marker with its associated store name
+            }
+        });
 
-                    marker.bindPopup(popupContent);
-                    markers.push({ marker, name: element.tags.name }); // Store marker with its associated store name
-                }
-            });
+            
 
             console.log("Markers:", markers); // Log markers array
 
@@ -59,8 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function filterStoresByName() {
-    console.log("Filtering stores..."); // Log to check if function is being executed
-
     const selectedStore = document.getElementById('storeSelect').value;
     markers.forEach(({ marker, name }) => {
         if (selectedStore === "" || selectedStore === name) {
@@ -70,6 +70,7 @@ function filterStoresByName() {
         }
     });
 }
+
 
 function displayUsername() {
     const username = localStorage.getItem('username');

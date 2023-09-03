@@ -107,36 +107,45 @@ app.post('/api/add-user', (req, res) => {
     });
 });
 
+
+//get stores 
 app.get('/getStores', (req, res) => {
-    let query = "SELECT * FROM store";
-    const storeNames = req.query.names ? req.query.names.split(',') : [];
+    let query = `
+        SELECT store.*, GROUP_CONCAT(CONCAT_WS('|', offer.product_id, offer.price)) as offerData
+        FROM store 
+        LEFT JOIN offer ON store.id = offer.store_id
+        GROUP BY store.id`;
 
-    if (storeNames.length) {
-        query += ` WHERE name IN (${storeNames.map(() => '?').join(',')})`;
-    }
-
-    connection.query(query, storeNames, (err, results) => {
-        // ... (rest of the code)
+    connection.query(query, (err, results) => {
         if (err) {
             res.status(500).send('Server error');
             throw err;
         }
         
         const response = {
-            elements: results.map(store => ({
-                type: 'node',
-                lat: store.lat,
-                lon: store.lon,
-                tags: {
-                    name: store.name,
-                    shop: store.type
-                }
-            }))
+            elements: results.map(store => {
+                const offers = store.offerData ? store.offerData.split(',').map(data => {
+                    const [product_id, price] = data.split('|');
+                    return { product_id, price };
+                }) : [];
+                return {
+                    type: 'node',
+                    lat: store.lat,
+                    lon: store.lon,
+                    tags: {
+                        name: store.name,
+                        shop: store.type,
+                        offers: offers
+                    }
+                };
+            })
         };
         
         res.json(response);
     });
 });
+
+
 
 app.get('/getUniqueStoreNames', (req, res) => {
     const query = "SELECT DISTINCT name FROM store";
