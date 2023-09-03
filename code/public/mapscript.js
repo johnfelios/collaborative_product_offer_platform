@@ -29,7 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (element.tags.offers) {
                         element.tags.offers.forEach(offer => {
-                            popupContent += `Product ID: ${offer.product_id}, Price: ${offer.price}<br>`;
+                            popupContent += `Product Name: ${offer.product_name}, Price: ${offer.price}<br>`;
+                            popupContent += `Date: ${offer.date}<br>`;
+                            popupContent += `Likes: ${offer.likes}<br>`;
+                            popupContent += `Dislikes: ${offer.dislikes}<br>`;
+                            popupContent += `Stock: ${offer.stock}<br>`;
                         });
                     }
     

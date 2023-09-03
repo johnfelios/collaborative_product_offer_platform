@@ -111,7 +111,9 @@ app.post('/api/add-user', (req, res) => {
 //get stores 
 app.get('/getStores', (req, res) => {
     let query = `
-        SELECT store.*, GROUP_CONCAT(CONCAT_WS('|', offer.product_id, offer.price)) as offerData
+        SELECT 
+            store.*, 
+            GROUP_CONCAT(CONCAT_WS('|', offer.product_name, offer.price, offer.date, offer.likes, offer.dislikes, offer.stock)) as offerData
         FROM store 
         LEFT JOIN offer ON store.id = offer.store_id
         GROUP BY store.id`;
@@ -125,9 +127,17 @@ app.get('/getStores', (req, res) => {
         const response = {
             elements: results.map(store => {
                 const offers = store.offerData ? store.offerData.split(',').map(data => {
-                    const [product_id, price] = data.split('|');
-                    return { product_id, price };
+                    const [product_name, price, date, likes, dislikes, stock] = data.split('|');
+                    return { 
+                        product_name, 
+                        price,
+                        date, 
+                        likes, 
+                        dislikes, 
+                        stock 
+                    };
                 }) : [];
+                
                 return {
                     type: 'node',
                     lat: store.lat,
@@ -144,6 +154,7 @@ app.get('/getStores', (req, res) => {
         res.json(response);
     });
 });
+
 
 
 
