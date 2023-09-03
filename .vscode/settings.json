@@ -2,5 +2,6 @@
     "sqltools.connections": [],
     "dataworkspace.excludedProjects": [
         "web/web.sqlproj"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }

@@ -52,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('There was an error fetching the JSON data:', error);
         });
+
+        displayUsername();
 });
 
 
@@ -68,3 +70,16 @@ function filterStoresByName() {
         }
     });
 }
+
+function displayUsername() {
+    const username = localStorage.getItem('username');
+    if (username) {
+        document.getElementById('usernameDisplay').textContent = username;
+    } else {
+        document.getElementById('usernameDisplay').textContent = 'Guest';
+    }
+}
+
+
+
+

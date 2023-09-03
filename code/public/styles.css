@@ -4,13 +4,7 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #4d45bc;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 1.5rem;
-}
+
 
 .filter {
     display: flex;

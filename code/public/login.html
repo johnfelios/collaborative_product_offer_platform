@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f6f6f6;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label, input {
+            margin-bottom: 10px;
+            display: block;
+            width: 100%;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #message {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Σύνδεση Χρήστη</h2>
+        <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            
+           
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+        </form>
+    </div>
+        <div><button type="button" onclick="window.location.href='index.html'">Go to Sign Up</button></div>
+        <div id="loginError" style="color: red; margin-top: 20px; display: none;">Incorrect username or password!</div>
+   
+
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').on('submit', function (e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    url: '/checkLogin',
+                    type: 'POST',
+                    data: {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                localStorage.setItem('username', data.username);
+                                window.location.href = 'map.html';
+                            } else {
+                                alert('Invalid login');
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                        }
+                    });
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -28,7 +28,7 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = '/map2.html';
+            window.location.href = '/login.html';
         } else {
             document.getElementById('message').textContent = data.message;
         }
