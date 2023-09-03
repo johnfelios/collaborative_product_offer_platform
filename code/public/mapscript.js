@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const storeSelect = document.getElementById('storeSelect');
     storeSelect.addEventListener('change', filterStoresByName);
 
+    //ipothetiki topothesia
+   
+    userslocation = L.marker([38.2466, 21.7346]).addTo(map)
+    .bindPopup("Τρέχουσα τοποθεσία");
+
     fetch('/getStores')
         .then(response => response.json())
         .then(jsonData => {
@@ -27,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     let color;
                     if (element.tags.offers && element.tags.offers.length > 0) {
                         color = 'green'; // Color for stores with offers
+                        
+                        
                     } else {
                         color = 'blue'; // Color for stores without offers
                     }
@@ -38,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         radius: 10
                     });
 
+                    const distanceFromUser = calculateDistance(38.2466, 21.7346, element.lat, element.lon);
                     let popupContent = `<strong>${element.tags.name || ''}</strong><br>`;
                     
                     if (element.tags.offers) {
@@ -50,6 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             popupContent += `Likes: ${offer.likes}<br>`;
                             popupContent += `Dislikes: ${offer.dislikes}<br>`;
                             popupContent += `Stock: ${offer.stock}<br>`;
+                            
+                            //needed to make the location bigger to see it work (default:50)
+                            if (distanceFromUser <= 300) { // If store is within 50* meters of user's location
+                                popupContent += `<br><a href="review.html" class="btn">Αξιολόγηση</a>`;
+                                popupContent += `<br><a href="review.html" class="btn">Προσθήκη Προσφοράς</a>`;
+                            }
                         });
                     }
     
@@ -104,3 +118,18 @@ function displayUsername() {
 
 
 
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371e3; // Earth's radius in meters
+    const φ1 = lat1 * Math.PI / 180; // φ, λ in radians
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const d = R * c; // Distance in meters
+    return d;
+}
