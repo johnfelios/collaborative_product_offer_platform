@@ -10,6 +10,15 @@
             display: flex;
         }
 
+        #selectorContainer {
+            background-color: #1223e21f;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         #sidePanel {
             width: 20%;
             padding: 10px;
@@ -23,7 +32,7 @@
             height: 500px;
         }
         header {
-            background-color: #2f25bce7;
+            background-color: #1e11cde9;
             color: white;
             text-align: center;
             padding: 1rem 0;
@@ -36,16 +45,23 @@
             }
 
             .user-greeting {
+                margin-right: 20px;
                 justify-content:right;
                 font-size: 20px; /* Adjust this to your liking */
                 color: #1bf61b; /* Change this to your preferred color */
             }
 
             .spacer {
-                height: 20px;
+                height: 60px;
             }
 
-            
+            .texts {
+                font-family: Arial, Helvetica, sans-serif;
+                margin-bottom: 10px;
+            }
+            .title {
+                margin-left: 20px;
+            }
 
 
     </style>
@@ -53,28 +69,31 @@
 <body>
     <header>
         <div class="title">     Καταστήματα με Προσφορές</div>
-        <div class="user-greeting"> Χρήστης: <span id="usernameDisplay"></span>   </div>
+        <div class="user-greeting"> Χρήστης: <span id="usernameDisplay">  </span>   </div>
     </header>
     
 
 <div id="container">
     <div id="sidePanel">
-        <div>Επιλογή Αλυσίδας Καταστημάτων</div>
+        <div id="selectorContainer">
+        <div class="texts">Επιλογή Αλυσίδας Καταστημάτων</div>
         <select id="storeSelect" onchange="filterStoresByName()">
             <option value="">Επιλογή Καταστήματος</option>
             <!-- Options will be dynamically populated here from the fetched data -->
         </select>
-
+    </div>
             <!--space -->
             <div class="div1"></div>
             <div class="spacer"></div>
             <div class="div2"></div>
 
-        <div>Επιλογή Κατηγορίας Προιόντων</div>
+            <div id="selectorContainer">
+        <div class="texts">Επιλογή Κατηγορίας Προιόντων</div>
         <select id="storeSelect" onchange="filterStoresByName()">
             <option value="">Επιλογή </option>
             <!-- Options will be dynamically populated here from the fetched data -->
         </select>
+        </div>
     </div>
 
     <div id="map"></div>
