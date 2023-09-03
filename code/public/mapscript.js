@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let color;
                     if (element.tags.offers && element.tags.offers.length > 0) {
                         color = 'green'; // Color for stores with offers
-                        
+                       
                         
                     } else {
                         color = 'blue'; // Color for stores without offers
@@ -67,8 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     }
     
-                marker.bindPopup(popupContent);
-                markers.push({ marker, name: element.tags.name }); // Store marker with its associated store name
+                    marker.bindPopup(popupContent);
+                    
+                    markers.push({ marker, name: element.tags.name }); // Store marker with its associated store name
+                    
+                    //check the stores with offers and add markerd by default before filter
+                    if (element.tags.offers && element.tags.offers.length > 0) {
+                        marker.addTo(map); // Add marker to the map
+                       }
             }
         });
 
