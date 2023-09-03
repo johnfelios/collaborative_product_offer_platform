@@ -52,7 +52,7 @@ header {
         margin-right: 20px;
         justify-content:right;
         font-size: 20px; /* Adjust this to your liking */
-        color: #1bf61b; /* Change this to your preferred color */
+        color: #aeb2d6; /* Change this to your preferred color */
     }
 
     .spacer {
@@ -65,4 +65,20 @@ header {
     }
     .title {
         margin-left: 20px;
+    }
+
+    header a {
+        margin-right: 20px;
+        color: #fff;
+        text-decoration: none;
+        border: 1px solid #fff;
+        padding: 3px 8px;   /* Decreased padding to make the button smaller */
+        font-size: 0.85em; /* Optional: Decreased font size to fit the smaller button */
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    header a:hover {
+        background-color: #fff;
+        color: #333;
     }
