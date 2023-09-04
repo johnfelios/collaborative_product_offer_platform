@@ -113,7 +113,7 @@ app.get('/getStores', (req, res) => {
     let query = `
         SELECT 
             store.*, 
-            GROUP_CONCAT(CONCAT_WS('|', offer.product_name, offer.price, offer.date, offer.likes, offer.dislikes, offer.stock)) as offerData
+            GROUP_CONCAT(CONCAT_WS('|', offer.product_name, offer.price, offer.date, offer.likes, offer.dislikes, offer.stock, offer.category_id)) as offerData
         FROM store 
         LEFT JOIN offer ON store.id = offer.store_id
         GROUP BY store.id`;
@@ -127,14 +127,15 @@ app.get('/getStores', (req, res) => {
         const response = {
             elements: results.map(store => {
                 const offers = store.offerData ? store.offerData.split(',').map(data => {
-                    const [product_name, price, date, likes, dislikes, stock] = data.split('|');
+                    const [product_name, price, date, likes, dislikes, stock, category_id] = data.split('|');
                     return { 
                         product_name, 
                         price,
                         date, 
                         likes, 
                         dislikes, 
-                        stock 
+                        stock,
+                        category_id
                     };
                 }) : [];
                 
@@ -152,6 +153,22 @@ app.get('/getStores', (req, res) => {
         };
         
         res.json(response);
+    });
+});
+
+
+//get categories
+app.get('/getCategories', (req, res) => {
+    // Fetch data from the categories table
+    let query = `SELECT id, name, parent_id FROM categories`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            res.status(500).send('Server error');
+            throw err;
+        }
+        
+        res.json({ categories: results });
     });
 });
 

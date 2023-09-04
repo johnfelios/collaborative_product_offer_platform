@@ -70,7 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
                     marker.bindPopup(popupContent);
                     
-                    markers.push({ marker, name: element.tags.name }); // Store marker with its associated store name
+                    
+                    markers.push({
+                        marker,
+                        name: element.tags.name,
+                        offers: element.tags.offers || []  // store the offers for each marker
+                    });
+                
                     
                     //check the stores with offers and add markerd by default before filter
                     if (element.tags.offers && element.tags.offers.length > 0) {
@@ -91,15 +97,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 option.textContent = name;
                 storeSelect.appendChild(option);
             });
+            
         })
         .catch(error => {
             console.error('There was an error fetching the JSON data:', error);
         });
 
         displayUsername();
-});
 
 
+        fetch('/getCategories')
+        .then(response => response.json())
+        .then(data => {
+            const mainCategories = data.categories.filter(category => category.parent_id === null);
+            const subCategories = data.categories.filter(category => category.parent_id !== null);
+    
+            mainCategories.forEach(mainCat => {
+                const mainOption = document.createElement('option');
+                mainOption.value = mainCat.id;
+                mainOption.textContent = mainCat.name;
+                categorySelect.appendChild(mainOption);
+    
+                // Fetch sub-categories for this main category and append them to the selector
+                subCategories
+                    .filter(subCat => subCat.parent_id === mainCat.id)
+                    .forEach(subCat => {
+                        const subOption = document.createElement('option');
+                        subOption.value = subCat.id;
+                        subOption.textContent = `-- ${subCat.name}`;
+                        categorySelect.appendChild(subOption);
+                    });
+            });
+        })
+        .catch(error => {
+            console.error('There was an error fetching the categories:', error);
+        });
+    });
 
 function filterStoresByName() {
     const selectedStore = document.getElementById('storeSelect').value;
@@ -111,6 +144,18 @@ function filterStoresByName() {
         }
     });
 }
+
+function filterStoresByCategory() {
+    const selectedCategory = document.getElementById('categorySelect').value;
+    markers.forEach(({ marker, offers }) => {
+        if (selectedCategory === "" || offers.some(offer => offer.category_id == selectedCategory)) {
+            marker.addTo(map);
+        } else {
+            map.removeLayer(marker);
+        }
+    });
+}
+
 
 
 function displayUsername() {
