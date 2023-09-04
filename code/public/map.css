@@ -36,6 +36,10 @@ header {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     }
 
+    header .header-title {
+        flex-grow: 1; /* this will make the title take up as much space as it can, pushing the buttons to the edges */
+    }
+
     footer {
     background-color: #333;
     color: #fff;
@@ -82,3 +86,21 @@ header {
         background-color: #fff;
         color: #333;
     }
+
+
+
+    .store-container {
+        border: 1px solid #136ccb93;
+        background-color: #136ccb3c;
+        padding: 16px;
+        border-radius: 8px;
+        width: 25%;
+        margin: 20px auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+
+    }
+    .store-content hr {
+        margin: 10px 0;
+    }
+    

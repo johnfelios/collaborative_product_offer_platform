@@ -61,7 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             
                             //needed to make the location bigger to see it work (default:50)
                             if (distanceFromUser <= 300) { // If store is within 50* meters of user's location
-                                popupContent += `<br><a href="review.html" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Αξιολόγηση</a>`;
+                                //popupContent += `<br><a href="review.html" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Αξιολόγηση</a>`;
+                                
+                                popupContent += `<br><a href="review.html?storeName=${encodeURIComponent(element.tags.name)}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Αξιολόγηση</a>`;
+
                                 popupContent += `<br><a href="review.html" style="background-color: #007BFF; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px; margin-top: 5px;">Προσθήκη Προσφοράς</a>`;
 
                             }
@@ -185,3 +188,5 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     const d = R * c; // Distance in meters
     return d;
 }
+
+
