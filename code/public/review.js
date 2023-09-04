@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the store name from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const storeName = decodeURIComponent(urlParams.get('storeName'));
+    
+    
 
     displayUsername();
 
@@ -37,8 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     storeContent += `Likes: ${offer.likes}<br>`;
                     storeContent += `Dislikes: ${offer.dislikes}<br>`;
                     storeContent += `Stock: ${offer.stock}<br>`;
+                    storeContent += `<button onclick="updateRating(${offer.id}, 'like')">Like</button>`;
+                    storeContent += `<button onclick="updateRating(${offer.id}, 'dislike')">Dislike</button>`;
+
                 });
             }
+
+            document.querySelectorAll('.like-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const offerId = this.getAttribute('data-offer-id');
+                    updateOfferRating(offerId, 'like');
+                });
+            });
+        
+            document.querySelectorAll('.dislike-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const offerId = this.getAttribute('data-offer-id');
+                    updateOfferRating(offerId, 'dislike');
+                });
+            });
+        
             if(contentArea) {
                 contentArea.innerHTML = storeContent;
             } else {
@@ -60,4 +80,30 @@ function displayUsername() {
     } else {
         document.getElementById('usernameDisplay').textContent = 'Guest';
     }
+}
+
+
+
+
+/// need debug doesent work
+function updateRating(offerId, action) {
+    console.log('Sending offerId:', offerId);
+    fetch('/updateRating', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ offerId, action })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error(data.error);
+        } else {
+            alert(`New ${action} count: ${data.newCount}`);
+        }
+    })
+    .catch(err => {
+        console.error("Error updating rating:", err);
+    });
 }

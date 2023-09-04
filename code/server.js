@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -176,6 +177,7 @@ app.get('/getCategories', (req, res) => {
 
 
 app.get('/getUniqueStoreNames', (req, res) => {
+    
     const query = "SELECT DISTINCT name FROM store";
     
     connection.query(query, (err, results) => {
@@ -186,6 +188,47 @@ app.get('/getUniqueStoreNames', (req, res) => {
         res.json(results.map(store => store.name));
     });
 });
+
+
+
+//update likes,dislikes (need debug doesent work)
+app.post('/updateRating', (req, res) => {
+    const { offerId, action } = req.body;
+
+    if (action !== 'like' && action !== 'dislike') {
+        return res.status(400).json({ error: 'Invalid action' });
+    }
+
+    const columnToUpdate = action === 'like' ? 'likes' : 'dislikes';
+
+    connection.query(`UPDATE offer SET ${columnToUpdate} = ${columnToUpdate} + 1 WHERE id = ?`, [offerId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database update error' });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Offer not found' });
+        }
+
+        connection.query('SELECT ? FROM offer WHERE id = ?', [columnToUpdate, offerId], (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Database select error' });
+            }
+
+            if (!results.length) {
+                return res.status(404).json({ error: 'Offer not found after update' });
+            }
+
+            const newCount = results[0][columnToUpdate];
+            res.json({ newCount });
+        });
+    });
+});
+
+
+
 
 
 const PORT = 5500;
