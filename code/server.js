@@ -191,10 +191,8 @@ app.get('/getUniqueStoreNames', (req, res) => {
 });
 
 
-
-//update likes,dislikes (need debug doesent work)
 app.post('/updateRating', (req, res) => {
-    const { offerId, action } = req.body;
+    const { offerId, action, username } = req.body;
 
     if (action !== 'like' && action !== 'dislike') {
         return res.status(400).json({ error: 'Invalid action' });
@@ -212,18 +210,28 @@ app.post('/updateRating', (req, res) => {
             return res.status(404).json({ error: 'Offer not found' });
         }
 
-        connection.query(`SELECT ${columnToUpdate} FROM offer WHERE id = ?`, [offerId], (err, results) => {
+        // Log user action
+        const userAction = action === 'like' ? 'LIKED_OFFER' : 'DISLIKED_OFFER';
+        connection.query('INSERT INTO user_activity (user_username, action, details) VALUES (?, ?, ?)', [username, userAction, JSON.stringify({offerId: offerId})], (err, results) => {
             if (err) {
                 console.error(err);
-                return res.status(500).json({ error: 'Database select error' });
+                // Handle error, maybe even roll back the like/dislike update
+                return res.status(500).json({ error: 'Failed to log user activity' });
             }
 
-            if (!results.length) {
-                return res.status(404).json({ error: 'Offer not found after update' });
-            }
+            connection.query(`SELECT ${columnToUpdate} FROM offer WHERE id = ?`, [offerId], (err, results) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: 'Database select error' });
+                }
 
-            const newCount = results[0][columnToUpdate];
-            res.json({ newCount });
+                if (!results.length) {
+                    return res.status(404).json({ error: 'Offer not found after update' });
+                }
+
+                const newCount = results[0][columnToUpdate];
+                res.json({ newCount });
+            });
         });
     });
 });
