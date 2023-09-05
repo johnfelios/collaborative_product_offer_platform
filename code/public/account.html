@@ -1,0 +1,54 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="map.css">
+      
+    </head>
+    <body>
+
+        
+        <header>
+            <div class="title">Προφίλ</div>
+          <nav class="navbar">
+            <ul>
+                <li><a href="map.html">Χάρτης</a></li>
+                <li><a href="login.html">Αποσύνδεση</a></li>
+                
+            </ul>
+        </nav>
+        </header>
+
+        
+    </body>
+    </html>
+    
+    <div class="container">
+        <h2>Account Information</h2>
+        <div class="info">
+            <strong>Username:</strong> <span id="usernameDisplay">JohnDoe</span>
+            <button onclick="editUsername()">Edit</button>
+        </div>
+        
+        <div class="change-username" id="changeUsernameDiv" style="display: none;">
+            <label for="newUsername">New Username:</label>
+            <input type="text" id="newUsername">
+            <button onclick="saveUsername()">Save</button>
+        </div>
+
+        <h3>Change Password</h3>
+        <div class="change-password">
+            <label for="oldPassword">Current Password:</label>
+            <input type="password" id="oldPassword">
+            
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword">
+
+            <button onclick="changePassword()">Change Password</button>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

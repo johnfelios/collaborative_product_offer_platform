@@ -72,19 +72,19 @@ header {
     }
 
     header a {
-        margin-right: 20px;
+        margin-right: 10px;
         color: #fff;
         text-decoration: none;
-        border: 1px solid #fff;
-        padding: 3px 8px;   /* Decreased padding to make the button smaller */
-        font-size: 0.85em; /* Optional: Decreased font size to fit the smaller button */
+        padding: 1px 4px;   /* Decreased padding to make the button smaller */
+        font-size: 0.7em; /* Optional: Decreased font size to fit the smaller button */
         border-radius: 5px;
         transition: background-color 0.3s;
     }
 
     header a:hover {
-        background-color: #fff;
-        color: #333;
+        background-color: #140670;
+        color: #ffffff;
+        border: 1px solid #ddd;
     }
 
 
@@ -197,4 +197,20 @@ header {
     .red-bold {
         color: red;
         font-weight: bold;
+    }
+
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 20px; /* space between items */
+    }
+    
+   
+    
+    .navbar a {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s;
     }
