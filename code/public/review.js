@@ -34,9 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 storeData.tags.offers.forEach(offer => {
                     storeContent += `<div id="offer-${offer.id}">`;  //i open a div so the likes/dislikes are refreshed without reloading the whole page
                     storeContent += `<hr>`;
-                    storeContent += `<strong>Product Name: ${offer.product_name}</strong><br>`;
-                    storeContent += `<strong>Price: ${offer.price}</strong><br>`;
-                    storeContent += `Date: ${offer.date}<br><br>`;
+                    storeContent += `<span style="font-size: 24px; font-weight: bold;">${offer.product_name}</span><br>`;
+
+                    storeContent += `<strong>Τιμή: ${offer.price} €</strong><br>`;
+                    storeContent += `Ενημερώθηκε: ${offer.date}<br><br>`;
                     storeContent += `👍: <span class="likes-count">${offer.likes}</span>`; // Use a class for likes count.
                     storeContent += `&nbsp;&nbsp;&nbsp;&nbsp;` //space
                     storeContent += `👎: <span class="dislikes-count">${offer.dislikes}</span><br><br>`; 

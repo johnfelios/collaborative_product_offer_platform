@@ -51,14 +51,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (element.tags.offers) {
                         element.tags.offers.forEach(offer => {
                             popupContent += `<hr>`;
-                            popupContent += `<strong>Product Name: ${offer.product_name}</strong><br>`;
-                            popupContent += `<strong>Price: ${offer.price}</strong><br>`;
+                            popupContent += `<span style="font-size: 16px; font-weight: bold;">${offer.product_name}</span><br>`;
 
-                            popupContent += `Date: ${offer.date}<br>`;
-                            popupContent += `Likes: ${offer.likes}<br>`;
-                            popupContent += `Dislikes: ${offer.dislikes}<br>`;
-                            popupContent += `Stock: ${offer.stock}<br>`;
+                            popupContent += `<strong>Τιμή: ${offer.price} €</strong><br>`;
+
+                            popupContent += `Ενημερώκε: ${offer.date}<br>`;
+                            popupContent += `👍: ${offer.likes}`;
+                            popupContent += `&nbsp;&nbsp;&nbsp;&nbsp;` //space
+                            popupContent += `👎: ${offer.dislikes}<br>`;
                             
+                            if (offer.stock !== "Μη διαθέσιμο") {
+                                popupContent += `<span class="green-bold">Stock: ${offer.stock}</span><br>`;
+                            }else {
+                                popupContent += `<span class="red-bold">Stock: ${offer.stock}</span><br>`;
+                            }
+
+
                             //needed to make the location bigger to see it work (default:50)
                             if (distanceFromUser <= 300) { // If store is within 50* meters of user's location
                                 //popupContent += `<br><a href="review.html" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Αξιολόγηση</a>`;
