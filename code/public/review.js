@@ -35,6 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     storeContent += `<div id="offer-${offer.id}">`;  //i open a div so the likes/dislikes are refreshed without reloading the whole page
                     storeContent += `<hr>`;
                     storeContent += `<span style="font-size: 24px; font-weight: bold;">${offer.product_name}</span><br>`;
+                    
+                    //need to make a table in db with stored picture urls for each offer
+                    //storeContent += `<img src="public/images/tuborgSoda330.png" alt="${offer.product_name}" style="width: 200px; height: 200px;"><br>`;
+
 
                     storeContent += `<strong>Τιμή: ${offer.price} €</strong><br>`;
                     storeContent += `Ενημερώθηκε: ${offer.date}<br><br>`;
