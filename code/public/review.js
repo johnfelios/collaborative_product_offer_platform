@@ -36,10 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     storeContent += `<hr>`;
                     storeContent += `<strong>Product Name: ${offer.product_name}</strong><br>`;
                     storeContent += `<strong>Price: ${offer.price}</strong><br>`;
-                    storeContent += `Date: ${offer.date}<br>`;
-                    storeContent += `Likes: <span class="likes-count">${offer.likes}</span><br>`; // Use a class for likes count.
-                    storeContent += `Dislikes: <span class="dislikes-count">${offer.dislikes}</span><br>`; 
-                    storeContent += `Stock: ${offer.stock}<br>`;
+                    storeContent += `Date: ${offer.date}<br><br>`;
+                    storeContent += `👍: <span class="likes-count">${offer.likes}</span>`; // Use a class for likes count.
+                    storeContent += `&nbsp;&nbsp;&nbsp;&nbsp;` //space
+                    storeContent += `👎: <span class="dislikes-count">${offer.dislikes}</span><br><br>`; 
+                  
                     storeContent += `</div>`; 
                     
                     //debug offer isnt identified
@@ -50,10 +51,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     
 
                     console.log("Current offer ID:", offer.id);
-                    storeContent += `<button onclick="updateRating(${offer.id}, 'like')">Like</button>`;
+
+                    if (offer.stock !== "Μη διαθέσιμο") {
+                        storeContent += `<span class="green-bold">Stock: ${offer.stock}</span><br>`;
+                        storeContent += `<button class="like-button" onclick="updateRating(${offer.id}, 'like')">Like</button>`;
+                        storeContent += `<button class="dislike-button" onclick="updateRating(${offer.id}, 'dislike')">Disike</button>`;
+                        storeContent += `<button class="red-stock-button" onclick="toggleStock(${offer.id})">Αλλαγή σε μη διαθέσιμο</button>`;
+                    } else {
+                        storeContent += `<span class="red-bold">Stock: ${offer.stock}</span><br>`;
+                        storeContent += `<button class="like-button disabled-button" disabled>Like</button>`; // Disabled and greyed out
+                        storeContent += `<button class="dislike-button disabled-button" disabled>Dislike</button>`; // Disabled and greyed out
+                        storeContent += `<button class="gr-stock-button" onclick="toggleStock(${offer.id})">Αλλαγή σε Διαθέσιμο</button>`;
+                    }
+                    //storeContent += `<button onclick="toggleStock(${offer.id})">Toggle Stock</button>`;
 
                     //storeContent += `<button onclick="updateRating(${offer.id}, 'like')">Like</button>`;
-                    storeContent += `<button onclick="updateRating(${offer.id}, 'dislike')">Dislike</button>`;
+                    //storeContent += `<button onclick="updateRating(${offer.id}, 'dislike')">Dislike</button>`;
 
                 });
             }
@@ -136,6 +149,33 @@ function updateRating(offerId, action) {
         console.error('There was an error with the fetch:', error);
     });
 }
+
+
+function toggleStock(offerId) {
+    fetch('http://localhost:5500/toggleStock', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            offerId: offerId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.newStockValue) {
+            location.reload();  // <-- Call to refresh the container.
+        }
+    })
+    .catch(error => {
+        console.error('There was an error with the fetch:', error);
+    });
+}
+
+
+
+
+
 
 
 

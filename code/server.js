@@ -237,6 +237,34 @@ app.post('/updateRating', (req, res) => {
 });
 
 
+app.post('/toggleStock', (req, res) => {
+    const { offerId } = req.body;
+
+    // Get the current stock value
+    connection.query('SELECT stock FROM offer WHERE id = ?', [offerId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database select error' });
+        }
+
+        if (!results.length) {
+            return res.status(404).json({ error: 'Offer not found' });
+        }
+
+        // Toggle the stock value
+        const newStockValue = results[0].stock === "Σε απόθεμα" ? "Μη διαθέσιμο" : "Σε απόθεμα";
+
+        connection.query('UPDATE offer SET stock = ? WHERE id = ?', [newStockValue, offerId], (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Database update error' });
+            }
+
+            res.json({ newStockValue });
+        });
+    });
+});
+
 
 
 

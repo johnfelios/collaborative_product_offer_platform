@@ -104,3 +104,97 @@ header {
         margin: 10px 0;
     }
     
+
+    /* In your CSS file or inside a <style> tag in your HTML */
+
+    .like-button {
+        background-color: rgb(61, 61, 226);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        margin-right: 10px; 
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .like-button:hover {
+        transform: scale(1.1); 
+    }
+
+    .dislike-button {
+        background-color: rgb(176, 10, 10);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        margin-right: 10px; 
+        margin-bottom: 10px;
+        margin-top: 10px;
+        
+
+    }
+
+    .dislike-button:hover {
+        transform: scale(1.1); 
+    }
+
+    .disabled-button {
+        background-color: grey;
+        color: white;
+        cursor:not-allowed;
+        transition: none;
+        margin-right: 10px; 
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+
+    .gr-stock-button {
+        background-color: rgb(75, 23, 219);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        margin-right: 10px; 
+        margin-bottom: 10px;
+        margin-top: 10px;
+  }
+
+    .gr-stock-button:hover {
+        transform: scale(1.1); 
+    }
+
+    .red-stock-button {
+        background-color: rgb(75, 23, 219);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        margin-right: 10px; 
+        margin-bottom: 10px;
+        margin-top: 10px;
+} 
+
+    .red-stock-button:hover {
+        transform: scale(1.1); 
+    }
+
+
+    .green-bold {
+        color: green;
+        font-weight: bold;
+    }
+    
+    .red-bold {
+        color: red;
+        font-weight: bold;
+    }
