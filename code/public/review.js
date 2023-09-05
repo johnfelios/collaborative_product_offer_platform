@@ -32,14 +32,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (storeData.tags.offers) {
                 storeData.tags.offers.forEach(offer => {
+                    storeContent += `<div id="offer-${offer.id}">`;  //i open a div so the likes/dislikes are refreshed without reloading the whole page
                     storeContent += `<hr>`;
                     storeContent += `<strong>Product Name: ${offer.product_name}</strong><br>`;
                     storeContent += `<strong>Price: ${offer.price}</strong><br>`;
                     storeContent += `Date: ${offer.date}<br>`;
-                    storeContent += `Likes: ${offer.likes}<br>`;
-                    storeContent += `Dislikes: ${offer.dislikes}<br>`;
+                    storeContent += `Likes: <span class="likes-count">${offer.likes}</span><br>`; // Use a class for likes count.
+                    storeContent += `Dislikes: <span class="dislikes-count">${offer.dislikes}</span><br>`; 
                     storeContent += `Stock: ${offer.stock}<br>`;
+                    storeContent += `</div>`; 
+                    
+                    //debug offer isnt identified
+                    console.log("Fetched JSON data:", jsonData);
+                    console.log("Found store data:", storeData);
+                    console.log("Current offer:", offer);
+
+                    
+
+                    console.log("Current offer ID:", offer.id);
                     storeContent += `<button onclick="updateRating(${offer.id}, 'like')">Like</button>`;
+
+                    //storeContent += `<button onclick="updateRating(${offer.id}, 'like')">Like</button>`;
                     storeContent += `<button onclick="updateRating(${offer.id}, 'dislike')">Dislike</button>`;
 
                 });
@@ -85,25 +98,58 @@ function displayUsername() {
 
 
 
-/// need debug doesent work
+//updare likes/dislikes when user likes or dislikes
 function updateRating(offerId, action) {
-    console.log('Sending offerId:', offerId);
-    fetch('/updateRating', {
+    console.log("Offer ID:", offerId, "Action:", action);
+
+    fetch('http://localhost:5500/updateRating', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ offerId, action })
+        body: JSON.stringify({
+            offerId: offerId, 
+            action: action
+        })
     })
     .then(response => response.json())
     .then(data => {
-        if (data.error) {
-            console.error(data.error);
-        } else {
-            alert(`New ${action} count: ${data.newCount}`);
+        if (data && data.newCount !== undefined) {
+            const offerElement = document.querySelector(`#offer-${offerId}`);
+            
+            if (offerElement) {
+                if(action === 'like') {
+                    const likesElement = offerElement.querySelector('.likes-count');
+                    if (likesElement) {
+                        likesElement.textContent = data.newCount;
+                    }
+                } else if (action === 'dislike') {
+                    const dislikesElement = offerElement.querySelector('.dislikes-count');
+                    if (dislikesElement) {
+                        dislikesElement.textContent = data.newCount;
+                    }
+                }
+            }
         }
     })
-    .catch(err => {
-        console.error("Error updating rating:", err);
+    .catch(error => {
+        console.error('There was an error with the fetch:', error);
     });
 }
+
+
+
+fetch('http://localhost:5500/updateRating', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        offerId: yourOfferIdValue,
+        action: 'like' // or 'dislike'
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+

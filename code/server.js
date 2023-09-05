@@ -114,7 +114,7 @@ app.get('/getStores', (req, res) => {
     let query = `
         SELECT 
             store.*, 
-            GROUP_CONCAT(CONCAT_WS('|', offer.product_name, offer.price, offer.date, offer.likes, offer.dislikes, offer.stock, offer.category_id)) as offerData
+            GROUP_CONCAT(CONCAT_WS('|', offer.product_name, offer.price, offer.date, offer.likes, offer.dislikes, offer.stock, offer.category_id, offer.id)) as offerData
         FROM store 
         LEFT JOIN offer ON store.id = offer.store_id
         GROUP BY store.id`;
@@ -128,7 +128,7 @@ app.get('/getStores', (req, res) => {
         const response = {
             elements: results.map(store => {
                 const offers = store.offerData ? store.offerData.split(',').map(data => {
-                    const [product_name, price, date, likes, dislikes, stock, category_id] = data.split('|');
+                    const [product_name, price, date, likes, dislikes, stock, category_id, id] = data.split('|');
                     return { 
                         product_name, 
                         price,
@@ -136,7 +136,8 @@ app.get('/getStores', (req, res) => {
                         likes, 
                         dislikes, 
                         stock,
-                        category_id
+                        category_id,
+                        id
                     };
                 }) : [];
                 
@@ -211,7 +212,7 @@ app.post('/updateRating', (req, res) => {
             return res.status(404).json({ error: 'Offer not found' });
         }
 
-        connection.query('SELECT ? FROM offer WHERE id = ?', [columnToUpdate, offerId], (err, results) => {
+        connection.query(`SELECT ${columnToUpdate} FROM offer WHERE id = ?`, [offerId], (err, results) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Database select error' });
