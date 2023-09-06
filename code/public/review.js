@@ -118,7 +118,8 @@ function displayUsername() {
 
 //updare likes/dislikes when user likes or dislikes
 function updateRating(offerId, action) {
-    console.log("Offer ID:", offerId, "Action:", action);
+    username = localStorage.getItem('username');
+    console.log("Offer ID:", offerId, "Action:", action, "Username:", username);
 
     fetch('http://localhost:5500/updateRating', {
         method: 'POST',
@@ -127,7 +128,8 @@ function updateRating(offerId, action) {
         },
         body: JSON.stringify({
             offerId: offerId, 
-            action: action
+            action: action,
+            username: username
         })
     })
     .then(response => response.json())

@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -88,6 +89,8 @@ app.post('/checkLogin', (req, res) => {
   });
 
 
+
+//add user to database
 app.post('/api/add-user', (req, res) => {
     const { username, email, password } = req.body;
 
@@ -176,7 +179,7 @@ app.get('/getCategories', (req, res) => {
 
 
 
-
+//gets unique store names
 app.get('/getUniqueStoreNames', (req, res) => {
     
     const query = "SELECT DISTINCT name FROM store";
@@ -190,9 +193,11 @@ app.get('/getUniqueStoreNames', (req, res) => {
     });
 });
 
-
+//updates likes and dislikes
 app.post('/updateRating', (req, res) => {
     const { offerId, action, username } = req.body;
+
+    console.log(req.body);
 
     if (action !== 'like' && action !== 'dislike') {
         return res.status(400).json({ error: 'Invalid action' });
@@ -211,7 +216,7 @@ app.post('/updateRating', (req, res) => {
         }
 
         // Log user action
-        const userAction = action === 'like' ? 'LIKED_OFFER' : 'DISLIKED_OFFER';
+        const userAction = action === 'like' ? 'LIKE' : 'DISLIKE';
         connection.query('INSERT INTO user_activity (user_username, action, details) VALUES (?, ?, ?)', [username, userAction, JSON.stringify({offerId: offerId})], (err, results) => {
             if (err) {
                 console.error(err);
@@ -236,7 +241,7 @@ app.post('/updateRating', (req, res) => {
     });
 });
 
-
+//updates stock
 app.post('/toggleStock', (req, res) => {
     const { offerId } = req.body;
 
@@ -264,6 +269,36 @@ app.post('/toggleStock', (req, res) => {
         });
     });
 });
+
+
+app.get('/getUserActivity', (req, res) => {
+    console.log("Received query:", req.query);  // log the entire query object
+
+    const { username } = req.query; 
+    if (!username) {
+        return res.status(400).send('Username not provided');
+    }
+
+    // We're going to join the offer table and get the product_name associated with the offerId
+    const query = `
+        SELECT ua.action, ua.timestamp, ua.details, o.product_name
+        FROM user_activity AS ua
+        LEFT JOIN offer AS o ON JSON_EXTRACT(ua.details, '$.offerId') = o.id
+        WHERE ua.user_username = ?`;
+
+    connection.query(query, [username], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Server error');
+        }
+
+        console.log(`Database results for ${username}:`, results);
+    
+        res.json({ userActions: results });
+    });
+});
+
+
 
 
 

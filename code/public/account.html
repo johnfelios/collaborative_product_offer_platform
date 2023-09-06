@@ -1,54 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="map.css">
-      
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Activity</title>
+    <link rel="stylesheet" href="map.css">
+</head>
 
-        
-        <header>
-            <div class="title">Προφίλ</div>
-          <nav class="navbar">
-            <ul>
-                <li><a href="map.html">Χάρτης</a></li>
-                <li><a href="login.html">Αποσύνδεση</a></li>
-                
-            </ul>
-        </nav>
-        </header>
+<body>
 
-        
-    </body>
-    </html>
-    
+    <!-- Header Section -->
+    <header>
+        <div class="title">Προφίλ</div>
+        <nav class="navbar">
+          <ul>
+              <li><a href="map.html">Χάρτης</a></li>
+              <li><a href="account.html" id="usernameDisplay"></a></li>
+              <li><a href="login.html">Αποσύνδεση</a></li>
+              
+          </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content Container -->
     <div class="container">
-        <h2>Account Information</h2>
-        <div class="info">
-            <strong>Username:</strong> <span id="usernameDisplay">JohnDoe</span>
-            <button onclick="editUsername()">Edit</button>
-        </div>
-        
-        <div class="change-username" id="changeUsernameDiv" style="display: none;">
-            <label for="newUsername">New Username:</label>
-            <input type="text" id="newUsername">
-            <button onclick="saveUsername()">Save</button>
+
+        <!-- Your board code -->
+        <div class="board">
+            <table id="user-activity-table">
+                <thead>
+                    <tr>
+                        <th>Ημερομηνία</th>
+                        <th>Ενέργεια</th>
+                        <th>Προϊόν</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated here -->
+                </tbody>
+            </table>
         </div>
 
-        <h3>Change Password</h3>
-        <div class="change-password">
-            <label for="oldPassword">Current Password:</label>
-            <input type="password" id="oldPassword">
-            
-            <label for="newPassword">New Password:</label>
-            <input type="password" id="newPassword">
+    </div> <!-- End of container -->
 
-            <button onclick="changePassword()">Change Password</button>
-        </div>
-    </div>
-    <script src="scripts.js"></script>
+    <!-- Footer Section -->
+    <footer>
+        Ioannis Felios 1047086
+    </footer>
+
+    <script src="account.js"></script>
+
 </body>
+
 </html>
