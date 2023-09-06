@@ -14,35 +14,41 @@
     <header>
         <div class="title">Προφίλ</div>
         <nav class="navbar">
-          <ul>
-              <li><a href="map.html">Χάρτης</a></li>
-              <li><a href="account.html" id="usernameDisplay"></a></li>
-              <li><a href="login.html">Αποσύνδεση</a></li>
-              
-          </ul>
-      </nav>
+            <ul>
+                <li><a href="map.html">Χάρτης</a></li>
+                <li><s href="account.html" id="usernameDisplay"></s></li>
+                <li><a href="login.html">Αποσύνδεση</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Main Content Container -->
-    <div class="container">
-
+    <div class="main-content-container" style="display: flex;">
+        
         <!-- Your board code -->
-        <div class="board">
-            <table id="user-activity-table">
-                <thead>
-                    <tr>
-                        <th>Ημερομηνία</th>
-                        <th>Ενέργεια</th>
-                        <th>Προϊόν</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Rows will be populated here -->
-                </tbody>
-            </table>
+        <div id="onethirdPanel">
+            <div class="board">
+                <table id="user-activity-table">
+                    <thead>
+                        <tr>
+                            <th>Ημερομηνία</th>
+                            <th>Ενέργεια</th>
+                            <th>Προϊόν</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- New content next to the board -->
+        <div id="onethirdPanel" style="flex: 2;">
+            <button>Test </button>
         </div>
 
-    </div> <!-- End of container -->
+    </div>
 
     <!-- Footer Section -->
     <footer>
