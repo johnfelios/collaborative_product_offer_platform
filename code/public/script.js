@@ -11,8 +11,8 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
     const password = document.getElementById('password').value;
 
     if (!isValidPassword(password)) {
-        document.getElementById('message').textContent = 'Password must be at least 8 characters and contain an uppercase letter, a number, and a symbol.';
-        return;
+        document.getElementById('message').textContent = 'Ο κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες, ένα κεφαλαίο γράμμα, έναν αριθμό και ένα σύμβολο.';
+        return;                                         
     }
    
    
@@ -38,3 +38,5 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
         document.getElementById('message').textContent = 'There was an error processing your request. Please try again.';
     });
 });
+
+
