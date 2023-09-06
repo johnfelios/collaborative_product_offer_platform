@@ -12,8 +12,8 @@ fetch(`/getUserActivity?username=${username}`)
     userActions.forEach(activity => {
         const row = document.createElement('tr');
         const date = new Date(activity.timestamp);
-        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-        
+        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} \t&nbsp;&nbsp; ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+
         row.innerHTML = `
             <td>${formattedDate}</td>
             <td>${activity.action}</td>

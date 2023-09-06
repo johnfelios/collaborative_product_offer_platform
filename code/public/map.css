@@ -20,12 +20,13 @@
     height: 500px;
 }
 
-#onethirdPanel {
-    width: 33.3%;
+#halfPanel {
+    width: 45%;
     padding: 10px;
     overflow-y: scroll;
     height: 500px;
     flex : 1;
+    margin: 20px;
 }
 
 #map {
@@ -242,7 +243,8 @@ header {
         border-collapse: collapse;
         width: 100%;
         margin-top: 20px;
-    }
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+    }   
     th, td {
         border: 1px solid black;
         padding: 8px;
