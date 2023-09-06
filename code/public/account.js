@@ -26,3 +26,30 @@ fetch(`/getUserActivity?username=${username}`)
 })
 .catch(error => console.error('Fetch error:', error));
 
+
+const usernameBtn = document.getElementById('changeUsernameBtn');
+const passwordBtn = document.getElementById('changePasswordBtn');
+
+const usernameModal = document.getElementById('usernameModal');
+const passwordModal = document.getElementById('passwordModal');
+
+// Open modals
+usernameBtn.onclick = () => {
+    usernameModal.style.display = "block";
+}
+
+passwordBtn.onclick = () => {
+    passwordModal.style.display = "block";
+}
+
+// Close modals
+const closeModalButtons = document.getElementsByClassName("close");
+for (let i = 0; i < closeModalButtons.length; i++) {
+    closeModalButtons[i].onclick = function() {
+        usernameModal.style.display = "none";
+        passwordModal.style.display = "none";
+    }
+}
+
+
+

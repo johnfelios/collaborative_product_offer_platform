@@ -43,9 +43,32 @@
             </div>
         </div>
         
-        <!-- New content next to the board -->
+        
         <div id="halfPanel" style="flex: 2;">
-            <button>Test </button>
+            <!-- Change Username/Password Buttons -->
+              
+
+                <!-- Modals -->
+                <div id="usernameModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <label for="newUsername">New Username:</label>
+                        <input type="text" id="newUsername" name="newUsername">
+                        <button onclick="changeUsername()">Confirm</button>
+                    </div>
+                </div>
+
+                <div id="passwordModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" id="newPassword" name="newPassword"><br>
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword">
+                        <button onclick="changePassword()">Confirm</button>
+                    </div>
+                </div>
+
         </div>
 
     </div>
