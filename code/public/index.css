@@ -19,18 +19,20 @@
     
 
         .container {
-            background-color: #ffffff;
+            background-color: #ffffff8b;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.305);
             text-align: center;
             margin-bottom: 20px;
+            font-family: "Trebuchet MS", Helvetica, sans-serif;
         }
 
         label, input {
             margin-bottom: 10px;
             display: block;
             width: 100%;
+            
         }
 
         button {
@@ -41,10 +43,12 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         button:hover {
             background-color: #0056b3;
+            transform: scale(1.1);
         }
 
         #message {

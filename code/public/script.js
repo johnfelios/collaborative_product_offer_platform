@@ -3,7 +3,7 @@ function isValidPassword(password) {
     return regex.test(password);
 }
 
-document.getElementById('userForm').addEventListener('submit', function(event) {
+    document.getElementById('userForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const username = document.getElementById('username').value;

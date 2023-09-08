@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 
                                 popupContent += `<br><a href="review.html?storeName=${encodeURIComponent(element.tags.name)}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Αξιολόγηση</a>`;
 
-                                popupContent += `<br><a href="review.html" style="background-color: #007BFF; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px; margin-top: 5px;">Προσθήκη Προσφοράς</a>`;
+                                popupContent += `<br><a href="addoffer.html"storeName=${encodeURIComponent(element.tags.name)}" style="background-color: #007BFF; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px; margin-top: 5px;">Προσθήκη Προσφοράς</a>`;
 
                             }
                         });
