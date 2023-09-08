@@ -300,6 +300,24 @@ app.get('/getUserActivity', (req, res) => {
 
 
 
+//get offers for subcategory
+
+app.get('/getOffersForSubCategory/:subCategoryId', (req, res) => {
+    const subCategoryId = req.params.subCategoryId;
+    console.log('Fetching offers for subCategory:', subCategoryId);
+
+    const query = 'SELECT * FROM offer WHERE category_id = ?';
+    connection.query(query, [subCategoryId], (err, results) => {
+        if(err) {
+            console.error('Database query error:', err);
+            res.status(500).send('Server Error');
+        } else {
+            console.log('Offers fetched:', results);
+            res.json({ offers: results });
+        }
+    });
+});
+
 
 
 const PORT = 5500;
