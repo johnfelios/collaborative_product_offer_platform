@@ -320,6 +320,7 @@ app.get('/getOffersForSubCategory/:subCategoryId', (req, res) => {
 
 
 app.post('/updateOfferPrice/:offerId', (req, res) => {
+    const action  = req.body.action;
     const offerId = req.params.offerId;
     const newPrice = req.body.price;
     const username = req.body.username;
@@ -333,8 +334,13 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
                 res.json({ success: false });
             } else {
                 // Then, log the user's action in the user_activity table
-                query = 'INSERT INTO user_activity (user_username, action) VALUES (?, ?)';
-                connection.query(query, [username, "Προσθήκη Προσφοράς"], (err, results) => {
+                const userAction = 'Προσθήκη Προσφοράς';
+                let numericOfferId = parseInt(offerId, 10);
+                connection.query('INSERT INTO user_activity (user_username, action, details) VALUES (?, ?, ?)', [username, userAction, JSON.stringify({offerId: numericOfferId})], (err, results) => { 
+
+
+
+                
                     if(err) {
                         console.error('Database query error:', err);
                         res.json({ success: false });
