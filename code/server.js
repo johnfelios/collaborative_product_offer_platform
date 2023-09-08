@@ -319,6 +319,37 @@ app.get('/getOffersForSubCategory/:subCategoryId', (req, res) => {
 });
 
 
+app.post('/updateOfferPrice/:offerId', (req, res) => {
+    const offerId = req.params.offerId;
+    const newPrice = req.body.price;
+    const username = req.session.username;  // Assuming you're using sessions to store logged in user's info
+
+    if(newPrice && username) {
+        // First, update the price in the offer table
+        let query = 'UPDATE offer SET price = ? WHERE id = ?';
+        connection.query(query, [newPrice, offerId], (err, results) => {
+            if(err) {
+                console.error('Database query error:', err);
+                res.json({ success: false });
+            } else {
+                // Then, log the user's action in the user_activity table
+                query = 'INSERT INTO user_activity (username, action) VALUES (?, ?)';
+                connection.query(query, [username, "Προσθήκη Προσφοράς"], (err, results) => {
+                    if(err) {
+                        console.error('Database query error:', err);
+                        res.json({ success: false });
+                    } else {
+                        res.json({ success: true });
+                    }
+                });
+            }
+        });
+    } else {
+        res.json({ success: false });
+    }
+});
+
+
 
 const PORT = 5500;
 app.listen(PORT, () => {

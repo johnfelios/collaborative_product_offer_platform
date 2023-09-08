@@ -69,20 +69,18 @@ subCategories.forEach(subCat => {
             offers.forEach(offer => {
                 subAccordionContent += `
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-body">
                         <a class="card-link" data-toggle="collapse" href="#offer-${offer.id}">
                             ${offer.product_name}
+                                <div class="card-body">
+                                    <span class="update-price-link" onclick="showPriceUpdateForm(${offer.id})">Προσθήκη Προσφοράς</span>
+                                    <div id="price-update-form-${offer.id}" style="display: none;">
+                                        <input id="price-${offer.id}" placeholder="Νέα Τιμή">
+                                        <button onclick="updatePrice(${offer.id})">Υποβολή</button>
+                                    </div>
+                                </div>    
                         </a>
-                    </div>
-                    <div id="offer-${offer.id}" class="collapse">
-                        <div class="card-body">
-                            <p>Price: ${offer.price}</p>
-                            <p>Date: ${offer.date}</p>  
-                            <p>Likes: ${offer.likes}</p>
-                            <p>Dislikes: ${offer.dislikes}</p>
-                            <p>Stock: ${offer.stock}</p>
-                        </div>
-                    </div>
+                    
                 </div>`;
             });
             document.getElementById(`subcat-${subCat.id}`).innerHTML = subAccordionContent;
@@ -90,10 +88,41 @@ subCategories.forEach(subCat => {
 });
 
 
-
-
-
 // Inject the entire structure into the accordion div
 document.getElementById('accordion').innerHTML = accordionContent;
 
     });
+
+    function updatePrice(offerId) {
+        let newPrice = document.querySelector(`#price-${offerId}`).value;
+        
+        if(newPrice) {
+            fetch(`/updateOfferPrice/${offerId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ price: newPrice })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Price updated successfully!');
+                } else {
+                    alert('There was an error updating the price.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error updating the price.');
+            });
+        } else {
+            alert('Please enter a valid price.');
+        }
+    }
+    
+    function showPriceUpdateForm(offerId) {
+        const form = document.querySelector(`#price-update-form-${offerId}`);
+        form.style.display = 'block';
+    }
+    
