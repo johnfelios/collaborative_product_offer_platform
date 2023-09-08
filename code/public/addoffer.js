@@ -92,17 +92,17 @@ subCategories.forEach(subCat => {
 document.getElementById('accordion').innerHTML = accordionContent;
 
     });
-
     function updatePrice(offerId) {
         let newPrice = document.querySelector(`#price-${offerId}`).value;
+        let username = localStorage.getItem('username'); // Retrieve username from localStorage
         
-        if(newPrice) {
+        if(newPrice && username) {
             fetch(`/updateOfferPrice/${offerId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ price: newPrice })
+                body: JSON.stringify({ price: newPrice, username: username })
             })
             .then(response => response.json())
             .then(data => {
@@ -117,9 +117,10 @@ document.getElementById('accordion').innerHTML = accordionContent;
                 alert('There was an error updating the price.');
             });
         } else {
-            alert('Please enter a valid price.');
+            alert('Please enter a valid price and ensure you are logged in.');
         }
     }
+    
     
     function showPriceUpdateForm(offerId) {
         const form = document.querySelector(`#price-update-form-${offerId}`);
