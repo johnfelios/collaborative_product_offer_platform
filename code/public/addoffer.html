@@ -3,10 +3,16 @@
 <head>
     <head>
         <meta charset="UTF-8">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+       
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+    
         <link rel="stylesheet" href="map.css">
+
     </head>
   
 </head>
@@ -32,12 +38,16 @@
         <form id="userForm">
             <div id="accordion">
                 <!-- Main categories and subcategories will be injected here -->
-            </div>
-            
-            
-            
-            
+            </div>    
         </div>
+    </div>
+
+    <div id="halfPanel">
+        <div class="dropdown">
+            <input type="text" class="form-control" id="offerSearch" placeholder="Search offers..." data-toggle="dropdown"/>
+            <div class="dropdown-menu" id="autocomplete-results"></div>
+        </div>
+        
     </div>
 <script src="addoffer.js"></script>
 </body>

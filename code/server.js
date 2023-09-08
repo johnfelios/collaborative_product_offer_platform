@@ -333,7 +333,7 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
                 console.error('Database query error:', err);
                 res.json({ success: false });
             } else {
-                // Then, log the user's action in the user_activity table
+                
                 const userAction = 'Προσθήκη Προσφοράς';
                 let numericOfferId = parseInt(offerId, 10);
                 connection.query('INSERT INTO user_activity (user_username, action, details) VALUES (?, ?, ?)', [username, userAction, JSON.stringify({offerId: numericOfferId})], (err, results) => { 
@@ -354,6 +354,21 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
         res.json({ success: false });
     }
 });
+
+app.get('/searchOffers', (req, res) => {
+    const searchTerm = req.query.q;
+
+    const query = 'SELECT product_name FROM offer WHERE product_name LIKE ? LIMIT 10';
+    connection.query(query, [`%${searchTerm}%`], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            res.status(500).send('Server Error');
+        } else {
+            res.json({ offers: results });
+        }
+    });
+});
+
 
 const PORT = 5500;
 app.listen(PORT, () => {

@@ -127,3 +127,40 @@ document.getElementById('accordion').innerHTML = accordionContent;
         form.style.display = 'block';
     }
     
+    $(document).ready(function() {
+        const resultsDropdown = $("#autocomplete-results");
+    
+        $("#offerSearch").on("input", function() {
+            const query = $(this).val();
+    
+            if (query.length > 2) { // Only search if the input is 3 or more characters
+                $.get(`/searchOffers?q=${encodeURIComponent(query)}`, function(data) {
+                    resultsDropdown.empty();
+    
+                    if (data && data.offers && data.offers.length) {
+                        data.offers.forEach(offer => {
+                            // Ensure you're accessing the right property from the offer
+                            resultsDropdown.append(`<a class="dropdown-item">${offer.product_name}</a>`);
+                        });
+                    } else {
+                        resultsDropdown.append(`<div class="dropdown-item">No results found</div>`);
+                    }
+                });
+            } else {
+                resultsDropdown.empty(); // Clear results for short queries
+            }
+        });
+    
+        // Handle click on a dropdown item
+        resultsDropdown.on("click", ".dropdown-item", function() {
+            $("#offerSearch").val($(this).text());
+            resultsDropdown.empty();
+        });
+    });
+    
+
+    
+    $("#offerSearch").on("input", function() {
+        console.log("Input detected: ", $(this).val());
+    });
+    
