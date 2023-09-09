@@ -52,12 +52,12 @@
         
         </div>
         
-        <div id="halfPanel">
+        <div id="halfPanel" style="margin-bottom: 0px;">
                                
                
                     <table id="user-activity-table">
                         <thead>
-                            <div class="btitle">Σκορ αξιολόγησης</div>
+                            <div class="btitle">Σκορ Αξιολόγησης</div>
                             <tr>
                                 <th>Συνολικό Σκρορ</th>
                                 <th>Σκορ Τρέχοντος Μήνα</th>
@@ -76,19 +76,20 @@
                         </tbody>
                     </table>
 
-                    <div class="spacer"></div>
-                    <div id="selectorContainer">
+                    
 
-                        <div class="texts">Αλλαγή Στοιχείων</div>
-                       <!---<button class="like-button">Αλλαγή Username</button> -->
-                           
-                                <input type="text" id="newUsername" placeholder="Enter new username">
-                                <button id="confirmUsernameChange">Confirm Change</button>
-                           
-                                <input type="text" id="newPassword" placeholder="Enter new Password">
-                                <button id="confirmChange">Confirm Change</button>
-                            <!----<button class="like-button">Αλλαγή Password</button> -->
-                         </div>
+                    <div id="selectorContainer" style="margin-top: 10px;">
+                        <div class="texts" style="margin-bottom: 0px;">Αλλαγή Στοιχείων</div>
+                                <input type="text" id="newUsername" placeholder="Εισάγετε νέο όνομα χρήστη">
+                                <button class="like-button" id="confirmUsernameChange">Επιβεβαίωση</button>
+                    </div>
+                    
+                    <div id="selectorContainer">
+                         <div class="texts">Αλλαγή Κωδικού Πρόσβασης</div>
+                            <input type="password" id="newPassword" placeholder="Εισάγετε νέο Κωδικό "><br>
+                            <input type="password" style="margin-top: 5px;" id="checknewPassword" placeholder="Επαλήθευση νέου Κωδικού"><br>
+                            <button class="like-button" id="confirmChange">Επιβεβαίωση</button>
+                    </div>
                     
                 
             </div>

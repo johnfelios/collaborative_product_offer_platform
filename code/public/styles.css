@@ -20,3 +20,40 @@
     background-color: #2ad23b;
 }
 
+
+/* Inputs */
+
+input {
+    width: 150px;
+    height: 30px;
+    padding: 0 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-size: 12px;
+    outline: none;
+    background-color: #f9f9f9;
+}
+
+input:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+input::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+input:hover {
+    background-color: #f1f1f1;
+}
+
+input:active {
+    background-color: #eaeaea;
+}

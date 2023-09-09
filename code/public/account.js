@@ -32,18 +32,53 @@ fetch(`/getUserActivity?username=${username}`)
 //
 $("#confirmUsernameChange").on("click", function() {
     const newUsername = $("#newUsername").val();
-     console.log("New username inputed: ", newUsername);
-     updateUsername(newUsername);
-     localStorage.setItem('username', newUsername);
-     location.reload();
+    console.log("New username inputed: ", newUsername);
+    
+  //confirmation
+    const isConfirmed = window.confirm("Είστε σίγουρος/η ότι θέλετε να αλλάξετε το όνομα χρήστη;");
+    
+    if (isConfirmed) {
+        updateUsername(newUsername);
+        localStorage.setItem('username', newUsername);
+        location.reload();
+    } else {
+        console.log("Username change was canceled.");
+    }
 });
 
+//password change 
 $("#confirmChange").on("click", function() {
     const newPassword = $("#newPassword").val();
-     console.log("New Password inputed: ", newPassword);
-     updatePassword(newPassword);
-     location.reload();
+    const checknewPassword = $("#checknewPassword").val();
+
+    if (newPassword != checknewPassword) {
+        const isConfirmed = window.confirm("Οι κωδικοί δεν ταιριάζουν. Παρακαλώ προσπαθήστε ξανά.");
+    }
+    if (!isValidPassword(newPassword)) {
+        const isConfirmed = window.confirm("Ο κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες, ένα κεφαλαίο γράμμα, έναν αριθμό και ένα σύμβολο.");
+        return;                                         
+    }
+    else {
+    console.log("New Password inputed: ", newPassword);
+
+    // Show confirmation dialog
+    const isConfirmed = window.confirm("Are you sure you want to change your password?");
+
+    if (isConfirmed) {
+        updatePassword(newPassword);
+        location.reload();
+    } else {
+        console.log("Password change was canceled.");
+    }
+}
+
+
+function isValidPassword(newPassword) {
+    const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+).{8,}$/;
+    return regex.test(newPassword);
+}
 });
+
  
 function updateUsername(newUsername) {
     let username = localStorage.getItem('username'); // Retrieve username from localStorage
@@ -84,7 +119,7 @@ function updatePassword(newPassword) {
         return regex.test(newPassword);
     }
     if (!isValidPassword(newPassword)) {
-        document.getElementById('message').textContent = 'Ο κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες, ένα κεφαλαίο γράμμα, έναν αριθμό και ένα σύμβολο.';
+        const isConfirmed = window.confirm("Ο κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες, ένα κεφαλαίο γράμμα, έναν αριθμό και ένα σύμβολο.");
         return;                                         
     }else
         {
