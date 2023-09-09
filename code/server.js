@@ -358,7 +358,7 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
 app.get('/searchOffers', (req, res) => {
     const searchTerm = req.query.q;
 
-    const query = 'SELECT product_name FROM offer WHERE product_name LIKE ? LIMIT 10';
+    const query = 'SELECT product_name, price, id FROM offer WHERE product_name LIKE ? LIMIT 10';
     connection.query(query, [`%${searchTerm}%`], (err, results) => {
         if (err) {
             console.error('Database query error:', err);

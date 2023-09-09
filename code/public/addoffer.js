@@ -92,10 +92,19 @@ subCategories.forEach(subCat => {
 document.getElementById('accordion').innerHTML = accordionContent;
 
     });
-    function updatePrice(offerId) {
+
+
+    function updatePrice(offerId,price) {
+        console.log("Updating price for offer with ID: ", offerId);
         let newPrice = document.querySelector(`#price-${offerId}`).value;
         let username = localStorage.getItem('username'); // Retrieve username from localStorage
+
+        console.log("New price on updatePrice function: ", newPrice);
         
+        if(price) {
+            console.log("Inside if ");
+            newPrice = price;
+        }
         if(newPrice && username) {
             fetch(`/updateOfferPrice/${offerId}`, {
                 method: 'POST',
@@ -126,41 +135,77 @@ document.getElementById('accordion').innerHTML = accordionContent;
         const form = document.querySelector(`#price-update-form-${offerId}`);
         form.style.display = 'block';
     }
-    
+  //-------------------  
+    //Search bar autocomplete
     $(document).ready(function() {
         const resultsDropdown = $("#autocomplete-results");
+        const priceUpdateSection = $("#priceUpdateSection");
+        const offerPriceInput = $("#offerPrice");
+        let selectedOfferId; // To store the selected offer's ID
     
         $("#offerSearch").on("input", function() {
             const query = $(this).val();
+            
     
-            if (query.length > 2) { // Only search if the input is 3 or more characters
+            if (query.length > 2) {
                 $.get(`/searchOffers?q=${encodeURIComponent(query)}`, function(data) {
                     resultsDropdown.empty();
     
                     if (data && data.offers && data.offers.length) {
                         data.offers.forEach(offer => {
-                            // Ensure you're accessing the right property from the offer
-                            resultsDropdown.append(`<a class="dropdown-item">${offer.product_name}</a>`);
+                            resultsDropdown.append(`<a class="dropdown-item" data-offer-id="${offer.id}" data-offer-price="${offer.price}">${offer.product_name}</a>`);
                         });
                     } else {
                         resultsDropdown.append(`<div class="dropdown-item">No results found</div>`);
                     }
                 });
             } else {
-                resultsDropdown.empty(); // Clear results for short queries
+                resultsDropdown.empty();
             }
         });
-    
-        // Handle click on a dropdown item
+        
         resultsDropdown.on("click", ".dropdown-item", function() {
-            $("#offerSearch").val($(this).text());
+            const selectedOfferName = $(this).text();
+            
+            const offerId = $(this).data('offer-id');
+        
+
+            console.log("Selected offer Data: ", selectedOfferName, offerId);
+
+            $("#offerSearch").val(selectedOfferName);
+            
+            $("#submitPrice").data('offer-id', offerId); // Save the offer.id as a data attribute on the button
+            $("#priceUpdateSection").show();
+            
             resultsDropdown.empty();
+      
+
+        $("#submitPrice").on("click", function() {
+            const newOPrice = $("#offerPrice").val();
+            console.log("Submiting new price from dropdown for offer with ID: ", offerId);
+            console.log("New price inputed: ", newOPrice);
+
+            updatePrice(offerId, newOPrice);
+           
         });
-    });
     
+    });
+
+
+    });
+//------------------
+
+    
+
+dropdown.addEventListener('change', function() {
+    // Show the price update section when an offer is selected
+    document.getElementById('priceUpdateSection').style.display = 'block';
+});
+
 
     
     $("#offerSearch").on("input", function() {
         console.log("Input detected: ", $(this).val());
     });
+    
     
