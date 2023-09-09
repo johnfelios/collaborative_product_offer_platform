@@ -284,7 +284,8 @@ app.get('/getUserActivity', (req, res) => {
         SELECT ua.action, ua.timestamp, ua.details, o.product_name
         FROM user_activity AS ua
         LEFT JOIN offer AS o ON JSON_EXTRACT(ua.details, '$.offerId') = o.id
-        WHERE ua.user_username = ?`;
+        WHERE ua.user_username = ?
+        ORDER BY ua.timestamp DESC;`;
 
     connection.query(query, [username], (err, results) => {
         if (err) {
