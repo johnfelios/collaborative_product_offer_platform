@@ -60,13 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (offer.stock !== "Μη διαθέσιμο") {
                         storeContent += `<span class="green-bold">Stock: ${offer.stock}</span><br>`;
                         storeContent += `<button class="like-button" onclick="updateRating(${offer.id}, 'like')">Like</button>`;
-                        storeContent += `<button class="dislike-button" onclick="updateRating(${offer.id}, 'dislike')">Disike</button>`;
-                        storeContent += `<button class="red-stock-button" onclick="toggleStock(${offer.id})">Αλλαγή σε μη διαθέσιμο</button>`;
+                        storeContent += `<button class="like-button" onclick="updateRating(${offer.id}, 'dislike')">Dislike</button>`;
+                        storeContent += `<button class="like-button" onclick="toggleStock(${offer.id})">Αλλαγή σε μη διαθέσιμο</button>`;
                     } else {
                         storeContent += `<span class="red-bold">Stock: ${offer.stock}</span><br>`;
-                        storeContent += `<button class="like-button disabled-button" disabled>Like</button>`; // Disabled and greyed out
-                        storeContent += `<button class="dislike-button disabled-button" disabled>Dislike</button>`; // Disabled and greyed out
-                        storeContent += `<button class="gr-stock-button" onclick="toggleStock(${offer.id})">Αλλαγή σε Διαθέσιμο</button>`;
+                        storeContent += `<button class="like-button" disabled>Like</button>`; // Disabled and greyed out
+                        storeContent += `<button class="like-button" disabled>Dislike</button>`; // Disabled and greyed out
+                        storeContent += `<button class="like-button" onclick="toggleStock(${offer.id})">Αλλαγή σε Διαθέσιμο</button>`;
                     }
             
 

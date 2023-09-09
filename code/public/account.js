@@ -65,8 +65,10 @@ $("#confirmChange").on("click", function() {
     const isConfirmed = window.confirm("Are you sure you want to change your password?");
 
     if (isConfirmed) {
+        const isConfirmed = window.confirm("Ο κωδικός σας άλλαξε επιτυχώς.");
         updatePassword(newPassword);
         location.reload();
+
     } else {
         console.log("Password change was canceled.");
     }
@@ -135,6 +137,7 @@ function updatePassword(newPassword) {
         .then(data => {
             if(data.success) {
                 alert('Password updated successfully!');
+                
             } else {
                 alert('There was an error updating the password.');
             }
