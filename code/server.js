@@ -325,6 +325,7 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
     const offerId = req.params.offerId;
     const newPrice = req.body.price;
     const username = req.body.username;
+    const storeId = req.body.storeId;
 
     if(newPrice && username) {
         // First, update the price in the offer table
