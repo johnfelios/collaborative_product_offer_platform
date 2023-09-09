@@ -334,7 +334,7 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
                 res.json({ success: false });
             } else {
                 
-                const userAction = 'Προσθήκη Προσφοράς';
+                const userAction = `Προσθήκη Προσφοράς με νέα τιμή: ${newPrice}€`;
                 let numericOfferId = parseInt(offerId, 10);
                 connection.query('INSERT INTO user_activity (user_username, action, details) VALUES (?, ?, ?)', [username, userAction, JSON.stringify({offerId: numericOfferId})], (err, results) => { 
 
