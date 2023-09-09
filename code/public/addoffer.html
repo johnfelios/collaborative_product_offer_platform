@@ -18,15 +18,20 @@
 </head>
 <body>
     <header>
-        <div class="title">Προσθήκη Προσφοράς</div>
-      <nav class="navbar">
-        <ul>
-            <li><a href="map.html">Χάρτης</a></li>
-            <li><a href="account.html" id="usernameDisplay"></a></li>
-            <li><a href="login.html">Αποσύνδεση</a></li>
-            
-        </ul>
-    </nav>
+        <div class="title">Προφίλ</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="map.html">Χάρτης</a></li>
+                <li><a href="account.html" id="usernameDisplay"></a></li>
+                <li class="dropdown">
+                    <a href="#" style="margin-right: 40px;">Λογαριασμός</a>
+                    <div class="dropdown-content">
+                        <a href="account.html">Επεξεργασία</a>
+                        <a href="login.html">Αποσύνδεση</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
     </header>
 
  <!-- Main Content Container -->
@@ -49,8 +54,8 @@
         </div>
        
             <div id="priceUpdateSection" style="display:none;">
-                <input  id="offerPrice"  placeholder="New Price">
-                <button id="submitPrice" type="button">Submit</button>
+                <input  id="offerPrice"  placeholder="Νέα Τιμή">
+                <button  class="like-button" id="submitPrice" type="button">Υποβολή</button>
 
             </div>
             
@@ -58,6 +63,9 @@
         
         
     </div>
+    <footer>
+        Ioannis Felios 1047086
+    </footer>
 <script src="addoffer.js"></script>
 </body>
 </html>

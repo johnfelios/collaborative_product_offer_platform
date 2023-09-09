@@ -76,7 +76,7 @@ subCategories.forEach(subCat => {
                                     <span class="update-price-link" onclick="showPriceUpdateForm(${offer.id})">Προσθήκη Προσφοράς</span>
                                     <div id="price-update-form-${offer.id}" style="display: none;">
                                         <input id="price-${offer.id}" placeholder="Νέα Τιμή">
-                                        <button onclick="updatePrice(${offer.id})">Υποβολή</button>
+                                        <button class="like-button" onclick="updatePrice(${offer.id})">Υποβολή</button>
                                     </div>
                                 </div>    
                         </a>

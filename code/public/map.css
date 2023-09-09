@@ -26,6 +26,26 @@
     overflow-y: scroll;
     height: 500px;
     margin: 20px;
+    float: left; /* This makes them side by side on larger screens */
+}
+
+
+@media (max-width: 800px) {
+    .halfPanel {
+        width: 100%; /* Takes full width on smaller screens */
+        float: none; /* Removes float so they stack */
+        clear: both; /* Clears any floats */
+    }
+}
+
+
+
+#quarterPanel {
+    width: 20%;
+    padding: 10px;
+    overflow-y: scroll;
+    height: 500px;
+    margin: 20px;
 }
 
 #map {
@@ -292,3 +312,33 @@ header {
         background-color: #f5f5f5;
     }
     
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    z-index: 9999;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

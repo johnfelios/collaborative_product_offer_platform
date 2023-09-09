@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,26 +8,33 @@
     <link rel="stylesheet" href="map.css">
 </head>
 
-<body>
 
-    <!-- Header Section -->
+<body>
     <header>
         <div class="title">Προφίλ</div>
         <nav class="navbar">
             <ul>
                 <li><a href="map.html">Χάρτης</a></li>
                 <li><s href="account.html" id="usernameDisplay"></s></li>
-                <li><a href="login.html">Αποσύνδεση</a></li>
+                <li class="dropdown">
+                    <a href="#" style="margin-right: 40px;">Λογαριασμός</a>
+                    <div class="dropdown-content">
+                        <a href="account.html">Επεξεργασία</a>
+                        <a href="login.html">Αποσύνδεση</a>
+    
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
+    
 
     <!-- Main Content Container -->
-    <div class="main-content-container" style="display: flex;">
+    
         
         <!-- Your board code -->
         <div id="halfPanel">
-            <div class="board">
+           
                 <table id="user-activity-table">
                     <thead>
                         <div class="btitle">Ιστορικό Ενεργειών</div>
@@ -41,21 +48,51 @@
                         <!-- Rows will be populated here -->
                     </tbody>
                 </table>
-            </div>
+        
         </div>
         
         <div id="halfPanel">
-            <div style="justify-content: right;">
-                
-                <div class="btitle">Αλλαγή Στοιχείων</div>
+                               
+               
+                    <table id="user-activity-table">
+                        <thead>
+                            <div class="btitle">Σκορ αξιολόγησης</div>
+                            <tr>
+                                <th>Συνολικό Σκρορ</th>
+                                <th>Σκορ Τρέχοντος Μήνα</th>
+                                <th>Πόντοι που προστέθηκαν τον περασμένο μήνα</th>
+                                <th>Συνολικοί Πόντοι απο ημερομηνία εγγραφής</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1000</td>
+                                <td>250</td>
+                                <td>200</td>
+                                <td>1200</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
 
-                <button class="like-button"  >Αλλαγή Username </button><br><br>
-                <button class="like-button">Αλλαγή Password</button>
+                    <div class="spacer"></div>
+                    <div id="selectorContainer">
+
+                        <div class="texts">Αλλαγή Στοιχείων</div>
+                             <button class="like-button"  >Αλλαγή Username </button>
+                            <button class="like-button">Αλλαγή Password</button>
+                         </div>
+                    
+                
+            </div>
+                
             </div>
         </div>
-    
 
-    </div>
+       
+
+
+    
 
     <!-- Footer Section -->
     <footer>
