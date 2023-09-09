@@ -68,10 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         storeContent += `<button class="dislike-button disabled-button" disabled>Dislike</button>`; // Disabled and greyed out
                         storeContent += `<button class="gr-stock-button" onclick="toggleStock(${offer.id})">Αλλαγή σε Διαθέσιμο</button>`;
                     }
-                    //storeContent += `<button onclick="toggleStock(${offer.id})">Toggle Stock</button>`;
-
-                    //storeContent += `<button onclick="updateRating(${offer.id}, 'like')">Like</button>`;
-                    //storeContent += `<button onclick="updateRating(${offer.id}, 'dislike')">Dislike</button>`;
+            
 
                 });
             }
