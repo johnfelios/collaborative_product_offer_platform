@@ -339,7 +339,7 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
                 const userAction = `Προσθήκη Προσφοράς με νέα τιμή: ${newPrice}€`;
                 let numericOfferId = parseInt(offerId, 10);
                 connection.query('INSERT INTO user_activity (user_username, action, details) VALUES (?, ?, ?)', [username, userAction, JSON.stringify({offerId: numericOfferId})], (err, results) => { 
-
+                
 
 
                 
@@ -371,7 +371,48 @@ app.get('/searchOffers', (req, res) => {
     });
 });
 
+app.post('/changeUsername', (req, res) => {
+    const { username, newUsername } = req.body;
 
+    if (username && newUsername) {
+        const query = 'UPDATE user SET username = ? WHERE username = ?';
+        connection.query(query, [newUsername, username], (err, results) => {
+            if (err) {
+                console.error('Database query error:', err);
+                res.status(500).send('Server Error');
+            } else {
+                res.json({ success: true });
+            }
+        });
+    } else {
+        res.json({ success: false });
+    }
+});
+
+
+
+
+
+app.post('/changePassword', (req, res) => {
+    const { username, newPassword } = req.body;
+
+    if (!username || !newPassword) {
+        return res.json({ success: false, message: "All fields are required" });
+    }
+        // Update the password in the database
+        const updateQuery = 'UPDATE user SET password = ? WHERE username = ?';
+        connection.query(updateQuery, [newPassword, username], (err, results) => {
+            if (err) {
+                console.error('Database query error:', err);
+                return res.status(500).send('Server Error');
+            }
+            res.json({ success: true });
+        });
+    });
+
+
+
+    
 const PORT = 5500;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

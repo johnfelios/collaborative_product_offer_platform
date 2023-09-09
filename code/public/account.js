@@ -2,6 +2,8 @@ const username = localStorage.getItem('username');
 document.getElementById('usernameDisplay').textContent = username;
 
 
+
+
 fetch(`/getUserActivity?username=${username}`)
 .then(response => response.json())
 .then(data => {
@@ -27,29 +29,82 @@ fetch(`/getUserActivity?username=${username}`)
 .catch(error => console.error('Fetch error:', error));
 
 
-const usernameBtn = document.getElementById('changeUsernameBtn');
-const passwordBtn = document.getElementById('changePasswordBtn');
+//
+$("#confirmUsernameChange").on("click", function() {
+    const newUsername = $("#newUsername").val();
+     console.log("New username inputed: ", newUsername);
+     updateUsername(newUsername);
+     localStorage.setItem('username', newUsername);
+     location.reload();
+});
 
-const usernameModal = document.getElementById('usernameModal');
-const passwordModal = document.getElementById('passwordModal');
+$("#confirmChange").on("click", function() {
+    const newPassword = $("#newPassword").val();
+     console.log("New Password inputed: ", newPassword);
+     updatePassword(newPassword);
+     location.reload();
+});
+ 
+function updateUsername(newUsername) {
+    let username = localStorage.getItem('username'); // Retrieve username from localStorage
+    console.log("Updating username with: ", newUsername);
 
-// Open modals
-usernameBtn.onclick = () => {
-    usernameModal.style.display = "block";
-}
-
-passwordBtn.onclick = () => {
-    passwordModal.style.display = "block";
-}
-
-// Close modals
-const closeModalButtons = document.getElementsByClassName("close");
-for (let i = 0; i < closeModalButtons.length; i++) {
-    closeModalButtons[i].onclick = function() {
-        usernameModal.style.display = "none";
-        passwordModal.style.display = "none";
+    if(newUsername && username) {
+        fetch(`/changeUsername`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, newUsername: newUsername })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                alert('Username updated successfully!');
+            } else {
+                alert('There was an error updating the username.');
+            }
+        });
+    } else {
+        alert('Please enter a valid username.');
     }
 }
 
+
+
+
+
+function updatePassword(newPassword) {
+    let username = localStorage.getItem('username'); // Retrieve username from localStorage
+    
+    
+    
+    function isValidPassword(newPassword) {
+        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+).{8,}$/;
+        return regex.test(newPassword);
+    }
+    if (!isValidPassword(newPassword)) {
+        document.getElementById('message').textContent = 'Ο κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες, ένα κεφαλαίο γράμμα, έναν αριθμό και ένα σύμβολο.';
+        return;                                         
+    }else
+        {
+        fetch(`/changePassword`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, newPassword: newPassword })
+        })
+        console.log("Updating password with: ", newPassword)
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                alert('Password updated successfully!');
+            } else {
+                alert('There was an error updating the password.');
+            }
+        });
+    } 
+}
 
 

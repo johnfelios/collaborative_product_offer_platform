@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Activity</title>
     <link rel="stylesheet" href="map.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 
@@ -79,8 +80,14 @@
                     <div id="selectorContainer">
 
                         <div class="texts">Αλλαγή Στοιχείων</div>
-                             <button class="like-button"  >Αλλαγή Username </button>
-                            <button class="like-button">Αλλαγή Password</button>
+                       <!---<button class="like-button">Αλλαγή Username</button> -->
+                           
+                                <input type="text" id="newUsername" placeholder="Enter new username">
+                                <button id="confirmUsernameChange">Confirm Change</button>
+                           
+                                <input type="text" id="newPassword" placeholder="Enter new Password">
+                                <button id="confirmChange">Confirm Change</button>
+                            <!----<button class="like-button">Αλλαγή Password</button> -->
                          </div>
                     
                 
