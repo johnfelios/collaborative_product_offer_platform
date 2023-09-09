@@ -139,21 +139,33 @@ header {
     }
 
 
-
     .store-container {
-        border: 1px solid #136ccb93;
-        background-color: #136ccb3c;
+        border: 1px solid #9ac2ee3c;
+        background-color: #9ac2ee3c;
         padding: 16px;
         border-radius: 8px;
-        width: 25%;
+        width: 50%;
         margin: 20px auto;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         font-family: "Trebuchet MS", Helvetica, sans-serif;
-
+        transition: all 0.3s ease; /* Smooth transition for all properties */
     }
+    
+    .store-container:hover {
+        transform: translateY(-5px); /* Slightly raise the container on hover */
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Intensify shadow on hover */
+    }
+    
     .store-content hr {
         margin: 10px 0;
+        border-color: rgba(19,108,203,0.5); /* A more muted border color for the hr */
+        transition: all 0.2s ease; /* Smooth transition for HR properties */
     }
+    
+    .store-content:hover hr {
+        border-color: #136ccb93; /* Darken HR on hover for effect */
+    }
+    
     
 
     /* In your CSS file or inside a <style> tag in your HTML */
