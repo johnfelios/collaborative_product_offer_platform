@@ -5,6 +5,9 @@
 }
 
 
+
+
+
 #container {
     display: flex;
 }
@@ -12,7 +15,7 @@
 
 
 #selectorContainer {
-    background-color: #1223e21f;
+    background-color: #dce5eccf;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -20,6 +23,14 @@
     margin-bottom: 20px;
 }
 
+#accountContainer {
+    background-color: #89a5dd52;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+}
 #sidePanel {
     width: 20%;
     padding: 10px;
@@ -57,7 +68,7 @@
 
 #map {
     width: 80%;
-    height: 500px;
+    height: 600px;
     border-radius: 10px;
     
     margin: 10px;
@@ -141,7 +152,7 @@ header {
 
     .store-container {
         border: 1px solid #9ac2ee3c;
-        background-color: #9ac2ee3c;
+        background-color: #dce5eccf;
         padding: 16px;
         border-radius: 8px;
         width: 50%;
