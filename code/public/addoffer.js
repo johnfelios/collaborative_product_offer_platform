@@ -116,7 +116,7 @@ document.getElementById('accordion').innerHTML = accordionContent;
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
-                    alert('Price updated successfully!');
+                    alert('Η προσφορά σας καταχωρήθηκε!');
                 } else {
                     alert('There was an error updating the price.');
                 }

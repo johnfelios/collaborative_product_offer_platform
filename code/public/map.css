@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 
 
 
@@ -47,14 +51,14 @@
     float: left; /* This makes them side by side on larger screens */
 }
 
-
 @media (max-width: 800px) {
-    .halfPanel {
+    #halfPanel {
         width: 100%; /* Takes full width on smaller screens */
         float: none; /* Removes float so they stack */
         clear: both; /* Clears any floats */
     }
 }
+
 
 
 
@@ -74,6 +78,11 @@
     margin: 10px;
 }
 header {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 0;
+    border-right: none;
+    margin-right: 0;
     background-color: #2863d9d8;
     color: white;
     text-align: center;
@@ -90,6 +99,9 @@ header {
     header .header-title {
         flex-grow: 1; /* this will make the title take up as much space as it can, pushing the buttons to the edges */
     }
+
+
+    
 
     footer {
     background-color: #333;
@@ -149,6 +161,33 @@ header {
         color: #ffffff;
     }
 
+        /* General styles */
+    .navbar {
+        display: flex;
+    }
+
+    .mobile-menu-button {
+        display: none; /* Hide by default */
+        background: transparent;
+        border: none;
+        font-size: 2em;
+        cursor: pointer;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 800px) {
+        .navbar {
+            display: none; /* Hide menu by default on mobile */
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .mobile-menu-button {
+            display: block; /* Show menu button on mobile */
+        }
+    }
+
+
 
     .store-container {
         border: 1px solid #9ac2ee3c;
@@ -161,6 +200,9 @@ header {
         font-family: "Trebuchet MS", Helvetica, sans-serif;
         transition: all 0.3s ease; /* Smooth transition for all properties */
     }
+
+
+    
     
     .store-container:hover {
         transform: translateY(-5px); /* Slightly raise the container on hover */

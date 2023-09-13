@@ -62,7 +62,7 @@ $("#confirmChange").on("click", function() {
     console.log("New Password inputed: ", newPassword);
 
     // Show confirmation dialog
-    const isConfirmed = window.confirm("Are you sure you want to change your password?");
+    const isConfirmed = window.confirm("Θέλετε σίγουρα να αλλάξετε κωδικό πρόσβασης;");
 
     if (isConfirmed) {
         const isConfirmed = window.confirm("Ο κωδικός σας άλλαξε επιτυχώς.");
@@ -97,7 +97,7 @@ function updateUsername(newUsername) {
         .then(response => response.json())
         .then(data => {
             if(data.success) {
-                alert('Username updated successfully!');
+                alert('Το όνομα χρήστη άλλαξε επιτυχώς!');
             } else {
                 alert('There was an error updating the username.');
             }
@@ -136,7 +136,7 @@ function updatePassword(newPassword) {
         .then(response => response.json())
         .then(data => {
             if(data.success) {
-                alert('Password updated successfully!');
+                alert('Ο κωδικός σας άλλαξε επιτυχώς!');
                 
             } else {
                 alert('There was an error updating the password.');

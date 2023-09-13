@@ -112,6 +112,18 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(err => {
             console.error("Error fetching store data:", err);
         });
+
+        document.getElementById("menuToggle").addEventListener("click", function() {
+            const menu = document.getElementById("menuList");
+            if (menu.style.display === "none" || menu.style.display === "") {
+                menu.style.display = "flex";
+            } else {
+                menu.style.display = "none";
+            }
+        });
+        
+
+
 });
 
 
@@ -237,4 +249,6 @@ fetch('http://localhost:5500/updateRating', {
 .then(response => response.json())
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
+
+
 
