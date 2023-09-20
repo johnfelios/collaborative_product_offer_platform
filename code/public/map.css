@@ -48,14 +48,14 @@ body {
     overflow-y: scroll;
     height: 500px;
     margin: 20px;
-    float: left; /* This makes them side by side on larger screens */
+    float: left; 
 }
 
 @media (max-width: 800px) {
     #halfPanel {
-        width: 100%; /* Takes full width on smaller screens */
-        float: none; /* Removes float so they stack */
-        clear: both; /* Clears any floats */
+        width: 100%;
+        float: none; 
+        clear: both; 
     }
 }
 
@@ -90,7 +90,7 @@ header {
     font-size: 1.5rem;
     display: flex;
     justify-content:space-between;
-    align-items: center; /* vertically centers content */
+    align-items: center;
     width: 100%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     
@@ -118,8 +118,8 @@ header {
     .user-greeting {
         margin-right: 20px;
         justify-content:right;
-        font-size: 20px; /* Adjust this to your liking */
-        color: #aeb2d6; /* Change this to your preferred color */
+        font-size: 20px; 
+        color: #aeb2d6;
     }
 
     .spacer {
@@ -139,7 +139,7 @@ header {
         color: #fff;
         text-decoration: none;
         padding: 1px 4px;   /* Decreased padding to make the button smaller */
-        font-size: 0.7em; /* Optional: Decreased font size to fit the smaller button */
+        font-size: 0.7em; /* Decreased font size to fit the smaller button */
         border-radius: 5px;
         transition: background-color 0.3s;
     }
@@ -148,7 +148,7 @@ header {
         margin-right: 10px;
         text-decoration: none;
         padding: 1px 4px;   /* Decreased padding to make the button smaller */
-        font-size: 0.7em; /* Optional: Decreased font size to fit the smaller button */
+        font-size: 0.7em; /*Decreased font size to fit the smaller button */
         border-radius: 5px;
         transition: background-color 0.3s;
         background-color: #68628a;
@@ -161,7 +161,7 @@ header {
         color: #ffffff;
     }
 
-        /* General styles */
+        
     .navbar {
         display: flex;
     }
@@ -198,7 +198,7 @@ header {
         margin: 20px auto;
         box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         font-family: "Trebuchet MS", Helvetica, sans-serif;
-        transition: all 0.3s ease; /* Smooth transition for all properties */
+        transition: all 0.3s ease; 
     }
 
 
@@ -221,7 +221,7 @@ header {
     
     
 
-    /* In your CSS file or inside a <style> tag in your HTML */
+ 
 
     .originallike-button {
         background-color: rgb(61, 61, 226);

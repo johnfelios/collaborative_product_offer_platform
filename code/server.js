@@ -220,7 +220,7 @@ app.post('/updateRating', (req, res) => {
         connection.query('INSERT INTO user_activity (user_username, action, details) VALUES (?, ?, ?)', [username, userAction, JSON.stringify({offerId: offerId})], (err, results) => {
             if (err) {
                 console.error(err);
-                // Handle error, maybe even roll back the like/dislike update
+                // Handle error
                 return res.status(500).json({ error: 'Failed to log user activity' });
             }
 
@@ -279,7 +279,7 @@ app.get('/getUserActivity', (req, res) => {
         return res.status(400).send('Username not provided');
     }
 
-    // We're going to join the offer table and get the product_name associated with the offerId
+    //  join the offer table and get the product_name associated with the offerId
     const query = `
         SELECT ua.action, ua.timestamp, ua.details, o.product_name
         FROM user_activity AS ua
