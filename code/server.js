@@ -329,8 +329,8 @@ app.post('/updateOfferPrice/:offerId', (req, res) => {
 
     if(newPrice && username) {
         // First, update the price in the offer table
-        let query = 'UPDATE offer SET price = ? WHERE id = ?';
-        connection.query(query, [newPrice, offerId], (err, results) => {
+        let query = 'UPDATE offer SET price = ?, username = ? WHERE id = ?';
+        connection.query(query, [newPrice, username, offerId], (err, results) => {
             if(err) {
                 console.error('Database query error:', err);
                 res.json({ success: false });
