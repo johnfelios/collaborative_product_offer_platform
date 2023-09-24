@@ -42,6 +42,16 @@ body {
     height: 500px;
 }
 
+#leadPanel {
+    width: 60%;
+    padding: 10px;
+    overflow-y: scroll;
+    height: 500px;
+    margin: 20px;
+    margin-top: 60px;
+    margin-left: 260px;
+    float: center; 
+}
 #halfPanel {
     width: 45%;
     padding: 10px;

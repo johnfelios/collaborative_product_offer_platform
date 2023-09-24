@@ -453,6 +453,24 @@ app.get('/getLeaderboard', (req, res) => {
     });
 });
 
+//get Price History
+app.get('/getPriceHistory', (req, res) => {
+    let query = `
+        SELECT product_name, COUNT(price) as count_price
+        FROM PriceHistory 
+        GROUP BY product_name;
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            res.status(500).send('Server error');
+            throw err;
+        }
+        
+        res.json({ priceHistory: results });
+    });
+});
+
 
 const PORT = 5500;
 app.listen(PORT, () => {
