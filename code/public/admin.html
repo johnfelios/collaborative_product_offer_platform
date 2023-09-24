@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="map.css">
+    
+</head>
+<body>
+    <header>
+        <div class="title">Χάρτης</div>
+        <nav class="navbar">
+            <ul>
+                <li><s href="admin.html">Χάρτης</s></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="charts.html">Στατιστικά</a></li>
+                <li><a href="account.html" id="usernameDisplay"></a></li>
+                <li class="dropdown">
+                    <a href="#" style="margin-right: 40px;">Λογαριασμός</a>
+                    <div class="dropdown-content">
+                        <a href="account.html">Επεξεργασία</a>
+                        <a href="login.html">Αποσύνδεση</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+
+<div id="container">
+    <div id="sidePanel">
+        <div id="selectorContainer">
+        <div class="texts">Επιλογή Αλυσίδας Καταστημάτων</div>
+        <select id="storeSelect" onchange="filterStoresByName()">
+            <option value="">Επιλογή Καταστήματος</option>
+            
+        </select>
+    </div>
+            <!--space -->
+            <div class="div1"></div>
+            <div class="spacer"></div>
+            <div class="div2"></div>
+
+            <div id="selectorContainer">
+        <div class="texts">Επιλογή Κατηγορίας Προιόντων</div>
+        <select id="categorySelect" onchange="filterStoresByCategory()">
+            <option value="">Επιλογή </option>
+            <!-- Options will be dynamically populated here from the fetched data -->
+        </select>
+        </div>
+    </div>
+
+    <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="mapscript.js"></script>
+
+<footer>
+    © Ioannis Felios 1047086
+</footer>
+</body>
+</html>

@@ -437,6 +437,23 @@ app.post('/changePassword', (req, res) => {
     });
 
     
+
+
+    //get Leaderboard
+app.get('/getLeaderboard', (req, res) => {
+    let query = `SELECT username, total_points, month_points FROM user ORDER BY total_points DESC;`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            res.status(500).send('Server error');
+            throw err;
+        }
+        
+        res.json({ leaderboard: results });
+    });
+});
+
+
 const PORT = 5500;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

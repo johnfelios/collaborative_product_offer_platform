@@ -39,6 +39,11 @@
                         success: function(data) {
                             if (data.success) {
                                 localStorage.setItem('username', data.username);
+                                //if username is admin redirect to admin page
+                                if (data.username == 'admin') {
+                                    window.location.href = 'admin.html';
+                                }
+                                else
                                 window.location.href = 'map.html';
                             } else {
                                 document.getElementById('message').textContent = 'Λανθασμένο username ή password!';
