@@ -410,7 +410,31 @@ app.post('/changePassword', (req, res) => {
         });
     });
 
-
+    app.get('/getScore', (req, res) => {
+        console.log("Received query:", req.query);  // log the entire query object
+    
+        const { username } = req.query; 
+        if (!username) {
+            return res.status(400).send('Username not provided');
+        }
+    
+        //  join the offer table and get the product_name associated with the offerId
+        const query = `
+            SELECT total_points, month_points
+            FROM user
+            WHERE username = ?;`;
+    
+        connection.query(query, [username], (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Server error');
+            }
+    
+            console.log(`Database results for ${username}:`, results);
+        
+            res.json({ userScore: results });
+        });
+    });
 
     
 const PORT = 5500;

@@ -29,6 +29,28 @@ fetch(`/getUserActivity?username=${username}`)
 .catch(error => console.error('Fetch error:', error));
 
 
+//score
+fetch(`/getScore?username=${username}`)
+.then(response => response.json())
+.then(data => {
+    const userScore = data.userScore;
+    const table = document.querySelector('#user-score-table tbody');
+    table.innerHTML = '';
+    
+    userScore.forEach(score => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+            <td>${score.total_points}</td>
+            <td>${score.month_points}</td> 
+        `;
+        
+        table.appendChild(row);
+    });
+})
+.catch(error => console.error('Fetch error:', error));
+
+
 //
 $("#confirmUsernameChange").on("click", function() {
     const newUsername = $("#newUsername").val();
