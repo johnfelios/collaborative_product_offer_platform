@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Activity</title>
+    <link rel="stylesheet" href="map.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+
+<body>
+    <header>
+        <div class="title">Χάρτης</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="admin.html">Χάρτης</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="charts.html">Στατιστικά</a></li>
+                <li><s href="adminaccount.html" id="usernameDisplay"></s></li>
+                <li class="dropdown">
+                    <a href="#" style="margin-right: 40px;">Λογαριασμός</a>
+                    <div class="dropdown-content">
+                        <a href="adminaccount.html">Επεξεργασία</a>
+                        <a href="login.html">Αποσύνδεση</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    
+        <div id="halfPanel">
+           
+                <table id="user-activity-table">
+                    <thead>
+                        <div class="btitle">Ιστορικό Ενεργειών</div>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Ενέργεια</th>
+                            <th>Προϊόν</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 11px;" >
+                        <!-- Rows will be populated here -->
+                    </tbody>
+                </table>
+        
+        </div>
+        
+        <div id="halfPanel" style="margin-bottom: 0px;">
+                               
+               
+                    <table id="user-score-table">
+                        <thead>
+                            <div class="btitle">Σκορ Αξιολόγησης</div>
+                            <tr>
+                                <th>Συνολικό Σκρορ</th>
+                                <th>Σκορ Τρέχοντος Μήνα</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         <!-- Rows will be populated here -->
+                        </tbody>
+                    </table>
+
+                    
+
+                    <div id="accountContainer" style="margin-top: 10px;">
+                        <div class="texts" style="margin-bottom: 0px;">Αλλαγή Username</div>
+                                <input type="text" id="newUsername" placeholder="Εισάγετε νέο όνομα χρήστη">
+                                <button class="button-57" id="confirmUsernameChange" role="button"><span class="text">Υποβολή</span><span>Επιβεβαίωση</span></button>
+                    </div>
+                    
+                    <div id="accountContainer">
+                         <div class="texts">Αλλαγή Κωδικού Πρόσβασης</div>
+                            <input type="password" id="newPassword" placeholder="Εισάγετε νέο Κωδικό "><br>
+                            <input type="password" style="margin-top: 5px;" id="checknewPassword" placeholder="Επαλήθευση νέου Κωδικού"><br>
+                            <button class="button-57" id="confirmChange" role="button"><span class="text">Υποβολή</span><span>Επιβεβαίωση</span></button>
+                    </div>
+                    
+                
+            </div>
+                
+            </div>
+        </div>
+
+       
+
+
+    
+
+ 
+    <footer>
+        © Ioannis Felios 1047086
+    </footer>
+
+    <script src="account.js"></script>
+
+</body>
+
+</html>
