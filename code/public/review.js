@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const storeName = decodeURIComponent(urlParams.get('storeName'));
     
-    
+    const authToken = localStorage.getItem('token');
+    if (!authToken) {
+        //if authentication token is missing, redirect to the login page
+        window.location.href = 'login.html';
+    }    
 
     displayUsername();
 
@@ -13,7 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Fetch the data for the specific store.
-    fetch('/getStores')
+    fetch('/getStores',  {
+    headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+    }})    
+    
         .then(response => response.json())
         .then(jsonData => {
             const storeData = jsonData.elements.find(element => element.tags.name === storeName);

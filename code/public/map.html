@@ -19,7 +19,7 @@
                     <a href="#" style="margin-right: 40px;">Λογαριασμός</a>
                     <div class="dropdown-content">
                         <a href="account.html">Επεξεργασία</a>
-                        <a href="login.html">Αποσύνδεση</a>
+                        <a onclick="localStorage.removeItem('token'); localStorage.removeItem('username') " href="login.html">Αποσύνδεση</a>
                     </div>
                 </li>
             </ul>
@@ -36,7 +36,7 @@
             
         </select>
     </div>
-            <!--space -->
+           
             <div class="div1"></div>
             <div class="spacer"></div>
             <div class="div2"></div>

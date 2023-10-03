@@ -1,6 +1,13 @@
 const username = localStorage.getItem('username');
 document.getElementById('usernameDisplay').textContent = username;
 
+
+const authToken = localStorage.getItem('token');
+if (!authToken) {
+    //if authentication token is missing, redirect to the login page
+    window.location.href = 'login.html';
+}
+
 //Leaderboard
 fetch(`/getLeaderboard`)
 .then(response => response.json())

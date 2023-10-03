@@ -2,6 +2,21 @@ const username = localStorage.getItem('username');
 document.getElementById('usernameDisplay').textContent = username;
 
 
+const authToken = localStorage.getItem('token');
+if (!authToken) {
+    //if authentication token is missing, redirect to the login page
+    window.location.href = 'login.html';
+}
+
+
+// Custom middleware to enforce authentication
+const requireAuth = (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).send('Unauthorized');
+    }
+    next(); // Move to the next middleware/route handler
+  };
+  
 
 
 fetch(`/getUserActivity?username=${username}`)
@@ -166,5 +181,4 @@ function updatePassword(newPassword) {
         });
     } 
 }
-
 

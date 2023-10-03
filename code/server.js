@@ -1,23 +1,30 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
 const mysql = require('mysql');
 const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 
 
+
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 
+// Secret key
+const secretKey = 'my_secret_key';
 
 
 
 // Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -36,6 +43,10 @@ connection.connect((err) => {
 });
 
 
+
+ 
+  
+
 // Serve static files from the public directory
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
@@ -48,6 +59,8 @@ function validatePassword(password) {
     const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+).{8,}$/;
     return regex.test(password);
 }
+
+
 
 // Check user login
 app.post('/checkLogin', (req, res) => {
@@ -74,13 +87,16 @@ app.post('/checkLogin', (req, res) => {
 
         if (result[0].count > 0) {
             console.log(`Successful login for username: ${username}`);
-            res.json({ success: true, username: username });
+            const token = jwt.sign({ username }, secretKey); // Generate token
+            res.json({ success: true, username: username, token: token }); // Send token back to client
         } else {
             console.log(`Failed login attempt for username: ${username}`);
             res.status(401).json({ success: false, error: 'Invalid username or password' });
         }
     });
 });
+
+
 
   
   // Serving login.html
@@ -90,10 +106,12 @@ app.post('/checkLogin', (req, res) => {
 
 
 
+
+
 //add user to database
 app.post('/api/add-user', (req, res) => {
     const { username, email, password } = req.body;
-
+    
     if (!username || !email || !password) {
         return res.status(400).json({ error: 'Username, email, and password are required' });
     }
@@ -114,6 +132,14 @@ app.post('/api/add-user', (req, res) => {
 
 //get stores 
 app.get('/getStores', (req, res) => {
+    if (!req.headers.authorization) {
+        return res.status(401).json({ error: 'Unauthorized access' });
+    }
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token){res.status(401).json({ error: 'Unauthorized access' });} 
+    const decoded = jwt.verify(token, secretKey);
+   
+
     let query = `
         SELECT 
             store.*, 
@@ -470,6 +496,10 @@ app.get('/getPriceHistory', (req, res) => {
         res.json({ priceHistory: results });
     });
 });
+
+
+
+
 
 
 const PORT = 5500;

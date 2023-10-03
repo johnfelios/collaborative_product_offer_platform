@@ -1,7 +1,11 @@
 var map; // Declare globally
 var markers = []; // To store all markers
 
-
+const authToken = localStorage.getItem('token');
+if (!authToken) {
+    //if authentication token is missing, redirect to the login page
+    window.location.href = 'login.html';
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the map
@@ -19,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     userslocation = L.marker([38.2466, 21.7346]).addTo(map)
     .bindPopup("Τρέχουσα τοποθεσία");
 
-    fetch('/getStores')
+    fetch('/getStores',{
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    })
         .then(response => response.json())
         .then(jsonData => {
             console.log("Fetched Data:", jsonData); // Log fetched data

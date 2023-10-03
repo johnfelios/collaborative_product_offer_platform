@@ -39,6 +39,7 @@
                         success: function(data) {
                             if (data.success) {
                                 localStorage.setItem('username', data.username);
+                                localStorage.setItem('token', data.token);
                                 //if username is admin redirect to admin page
                                 if (data.username == 'admin') {
                                     window.location.href = 'admin.html';
