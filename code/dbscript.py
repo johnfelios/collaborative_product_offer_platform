@@ -34,7 +34,7 @@ for element in elements:
         
         cursor.execute(sql, (store_id, name, lon, lat))
 
-# Commit the transaction and close the connection
+# Commit and close the connection
 connection.commit()
 cursor.close()
 connection.close()

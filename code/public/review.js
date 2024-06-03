@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     storeContent += `<span style="font-size: 24px; font-weight: bold;">${offer.product_name}</span><br>`;
                     
                    
-                    storeContent += `<img src="public/images/tuborgSoda330.png" alt="${offer.product_name}" style="width: 200px; height: 200px;"><br>`;
+                    storeContent += `<img src="public/images/${offer.product_name}.png" alt="${offer.product_name}" style="width: 200px; height: 200px;"><br>`;
+                        
 
 
                     storeContent += `<strong>Τιμή: ${offer.price} €</strong><br>`;

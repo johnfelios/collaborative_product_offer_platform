@@ -1,4 +1,4 @@
-var map; // Declare globally
+var map; 
 var markers = []; // To store all markers
 
 const authToken = localStorage.getItem('token');
@@ -18,7 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const storeSelect = document.getElementById('storeSelect');
     storeSelect.addEventListener('change', filterStoresByName);
 
-    //ipothetiki topothesia
+    //geolovation
+    /*
+    function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+          console.log("Geolocation is not supported by this browser.");
+        }
+      }
+      
+      function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        console.log(latitude, longitude);
+      }
+      */
+
+
+    //ipothetiki topothesia 
    
     userslocation = L.marker([38.2466, 21.7346]).addTo(map)
     .bindPopup("Τρέχουσα τοποθεσία");
@@ -30,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(response => response.json())
         .then(jsonData => {
-            console.log("Fetched Data:", jsonData); // Log fetched data
+            console.log("Fetched Data:", jsonData); // fetched data
 
             let storeNames = new Set(); // For storing unique store names
 
@@ -77,12 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             //if username from localstorage is admin then show delete button
                             const username = localStorage.getItem('username');
+                            console.log(username);
                             if (username === 'admin') {
                                 popupContent += `<br><a href="review.html?storeName=${encodeURIComponent(element.tags.name)}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Αξιολόγηση</a>`;
 
                                 popupContent += `<br><a href="addoffer.html"storeName=${encodeURIComponent(element.tags.name)}" style="background-color: #007BFF; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px; margin-top: 5px;">Προσθήκη Προσφοράς</a>`;
-                                popupContent += `<br><a href=""style="background-color: red; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px; margin-top: 5px;">Διαγραφή Προσφοράς</a>`;  //need to add functionality
-                            }else{
+                                
+                                popupContent += `<br><a href="/deleteOffer?id=${offer.id}" style="background-color: red; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px; margin-top: 5px;">Διαγραφή Προσφοράς</a>`;
+                            }else {
                             //needed to make the location bigger to see it work (default:50)
                             if (distanceFromUser <= 300) { // If store is within 50* meters of user's location
                                 
@@ -195,6 +215,9 @@ function displayUsername() {
 }
 
     
+
+
+
 
 
 function calculateDistance(lat1, lon1, lat2, lon2) {

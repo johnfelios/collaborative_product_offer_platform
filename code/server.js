@@ -498,7 +498,22 @@ app.get('/getPriceHistory', (req, res) => {
 });
 
 
-
+//delete offer
+app.get("/deleteOffer", (req, res) => {
+    const offerId = req.query.id;
+    console.log(offerId);
+     
+    connection.query('DELETE FROM offer WHERE id = ?', [offerId], (err, results) => {
+      if (err) {
+        console.error("Database error:", err);
+        res.sendStatus(500); // Internal Server Error
+      } else if (results.affectedRows === 0) {
+        res.sendStatus(404); // Offer not found
+      } else {
+        res.sendStatus(200); // Success
+      }
+    });
+  });
 
 
 
